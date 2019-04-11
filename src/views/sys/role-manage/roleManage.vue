@@ -50,7 +50,7 @@
           </Form>
           <div slot="footer">
             <Button type="text" @click="cancelRole">取消</Button>
-            <Button type="primary" :loading="submitLoading" @click="submitRole">提交</Button>
+            <Button type="primary"  @click="submitRole">提交</Button>
           </div>
         </Modal>
         <Modal title="分配权限(点击选择)" v-model="permModalVisible" :mask-closable='false' :width="500" :styles="{top: '30px'}" class="permModal">
@@ -59,7 +59,7 @@
           <div slot="footer">
             <Button type="text" @click="cancelPermEdit">取消</Button>
             <Button @click="selectTreeAll">全选/反选</Button>
-            <Button type="primary" :loading="submitPermLoading" @click="submitPermEdit">提交</Button>
+            <Button type="primary"  @click="submitPermEdit">提交</Button>
           </div>
         </Modal>
     </div>
@@ -106,10 +106,8 @@ export default {
       optionDisabled:false,
       noneDisabled:false,
       modalTitle: "",
-      roleForm: {
-        code: "",
-        name: "",
-        processKey: []
+      roleForm: {        
+        name: ""        
       },
       roleFormValidate: {
         name: [{ required: true, message: "角色名称不能为空", trigger: "blur" }],
@@ -371,25 +369,35 @@ export default {
       this.roleModalVisible = false;
     },
     submitRole() {
-      let tempObj = {
-        code: this.roleForm.code,
-        name: this.roleForm.name,
-        processKey: this.roleForm.processKey.join(",")
-      }
-      if(JSON.stringify(this.tempObj)==JSON.stringify(tempObj)) {
+      
+      let tempObj =this.roleForm.name
+      
+      // {
+      //   code: this.roleForm.code,
+      //   name: this.roleForm.name,
+      //   processKey: this.roleForm.processKey.join(",")
+      // }
+     
+      if(this.tempObj==tempObj) {
         this.roleModalVisible = false;
+        
         return;
       }else{
         this.$refs.roleForm.validate(valid => {
           if (valid) {
+            
             this.submitLoading = true;
             let roleFn = this.modalType === 0 ? addRole : editRole;
-            this.roleForm.processKey=this.roleForm.processKey.join(",")
+          
+            //this.roleForm.processKey=this.roleForm.processKey.join(",")
+           
             roleFn(this.roleForm).then(res => {
+             
               this.submitLoading = false;
               this.$Message.success("操作成功");
               this.getRoleList();
               this.roleModalVisible = false;
+              
             }).finally(() => {
               this.submitLoading = false;
             });
