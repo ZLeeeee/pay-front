@@ -485,3 +485,51 @@ export const getOnlyUserList=params=>{
 export const getOnlyCompanyList=params=>{
   return getRequest(`/company/getAll/${params}`)
 }
+//添加代理用户
+export const agencyadd=params=>{
+    return postRequest('/user/add',params)
+  }
+  //用户代理数组
+  export const merchantList=params=>{
+    return postRequest('user/all/byRole',params)
+  }
+  //余额加减
+  export const subtract =params=>{
+    return postRequest('/wallet/amount/edit',params)
+  }
+  //通道列表
+  export const passagewayList=params=>{
+    return postRequest('userRates/get/byUser',params)
+  }
+  //编辑用户通道
+  export const editorswayList=params=>{
+    return postRequest('/userRates/get/byUser',params)
+  }
+  //支付方式查询
+  export const payList=params=>{
+    return postRequest('/payment/all/page',params)
+  }
+  //添加支付方式
+  export const addpayList=params=>{
+    return postRequest('/payment/add',params)
+  }
+  //编辑支付方式
+  export const editorspayList=params=>{
+    return postRequest('/payment/edit',params)
+  }
+//   删除支付方式
+export const eremovepayList=params=>{
+    return postRequest('/payment/del/{id}',params)
+  }
+//所有账号列表
+export const accountList=params=>{
+    return postRequest('accountPhones/all',params)
+  }
+  //结算列表
+  export const ccountList=params=>{
+    return postRequest('withdraws/all',params)
+  }
+  //充值列表
+  export const chargeList=params=>{
+    return postRequest('/recharges/all/page',params)
+  }

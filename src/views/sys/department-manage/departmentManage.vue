@@ -137,40 +137,40 @@ export default {
         }
       })
     },
-    // getParentList() {
-    //   this.loading = true;
-    //   initDepartment().then(res => {
-    //     this.loading = false;
-    //     this.initData(res.data);
-    //     res.data.forEach(function(e) {
-    //       if (e.isParent) {
-    //         e.loading = false;
-    //         e.children = [];
-    //       }
-    //     });
-    //     this.data = res.data;
-    //   });
-    // },
-    // getParentListEdit() {
-    //   this.loadingEdit = true;
-    //   initDepartment().then(res => {
-    //     this.loadingEdit = false;
-    //     this.initData(res.data);
-    //     res.data.forEach(function(e) {
-    //       if (e.isParent) {
-    //         e.loading = false;
-    //         e.children = [];
-    //       }
-    //     });
-    //     // 头部加入一级
-    //     let first = {
-    //       id: "0",
-    //       title: "一级部门"
-    //     };
-    //     res.data.unshift(first);
-    //     this.dataEdit = res.data;
-    //   });
-    // },
+    getParentList() {
+      this.loading = true;
+      initDepartment().then(res => {
+        this.loading = false;
+        this.initData(res.data);
+        res.data.forEach(function(e) {
+          if (e.isParent) {
+            e.loading = false;
+            e.children = [];
+          }
+        });
+        this.data = res.data;
+      });
+    },
+    getParentListEdit() {
+      this.loadingEdit = true;
+      initDepartment().then(res => {
+        this.loadingEdit = false;
+        this.initData(res.data);
+        res.data.forEach(function(e) {
+          if (e.isParent) {
+            e.loading = false;
+            e.children = [];
+          }
+        });
+        // 头部加入一级
+        let first = {
+          id: "0",
+          title: "一级部门"
+        };
+        res.data.unshift(first);
+        this.dataEdit = res.data;
+      });
+    },
     loadData(item, callback) {
       debugger;
       loadDepartment(item.id).then(res => {

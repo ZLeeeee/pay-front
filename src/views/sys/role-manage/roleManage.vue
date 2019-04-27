@@ -32,21 +32,6 @@
             <FormItem label="角色名称" prop="name">
               <Input v-model="roleForm.name" placeholder="请输入" :maxlength="20"/>
             </FormItem>
-            <!-- <FormItem label="角色编码" prop="code">
-              <Input v-model="roleForm.code" placeholder="请输入" :maxlength="20"/>
-            </FormItem>
-            <FormItem label="角色对应节点" prop="processKey" :label-width="100">
-              <Select v-model="roleForm.processKey" multiple @on-change="selectOnchange">
-                <Option value="none" key="none" :disabled="noneDisabled">无</Option>
-                <Option value="approvalProcess" key="approvalProcess" :disabled="optionDisabled">发起申请</Option>
-                <Option value="reviewProcess" key="reviewProcess" :disabled="optionDisabled">税金核查1</Option>
-                <Option value="checkEntity" key="checkEntity" :disabled="optionDisabled">税金核查2</Option>
-                <Option value="examineEntity" key="examineEntity" :disabled="optionDisabled">税金核查3</Option>
-                <Option value="checkPay" key="checkPay" :disabled="optionDisabled">资金审视</Option>
-                <Option value="approvalPay" key="approvalPay" :disabled="optionDisabled">税金审批</Option>
-                <Option value="reportPaid" key="reportPaid" :disabled="optionDisabled">上报实缴，并补全资料</Option>
-              </Select>
-            </FormItem> -->
           </Form>
           <div slot="footer">
             <Button type="text" @click="cancelRole">取消</Button>
@@ -334,6 +319,7 @@ export default {
         sort: this.sortColumn,
         order: this.sort
       };
+      console.log(params)
       getRoleList(params).then(res => {
         this.loading = false;
         this.data = res.data.list;
@@ -342,6 +328,7 @@ export default {
         this.loading = false;
       });
     },
+    
     getPermList() {
       this.treeLoading = true;
       getAllPermissionList().then(res => {
