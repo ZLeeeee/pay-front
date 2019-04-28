@@ -1,13 +1,13 @@
 <template>
     <div>
-        <p class="agency-top-text">结算管理</p>
+        <p class="agency-top-text">订单管理</p>
         <Row style="margin-top:14px;" type="flex" justify="space-between">
             <Col :span="6" class="balance-box">
                 <div class="balance-box-left">
                     <Icon type="logo-yen" class="balance-box-icon" size="36"/>
                 </div>
                 <div class="balance-box-right">
-                    <p>结算总额</p>
+                    <p>订单金额</p>
                     <div>3355441.81元</div>
                 </div>
             </Col>
@@ -16,7 +16,7 @@
                     <Icon type="logo-yen" class="balance-box-icon" size="36"/>
                 </div>
                 <div class="balance-box-right">
-                    <p>结算总额</p>
+                    <p>手续费</p>
                     <div>3355441.81元</div>
                 </div>
             </Col>
@@ -25,7 +25,7 @@
                     <Icon type="logo-yen" class="balance-box-icon" size="36"/>
                 </div>
                 <div class="balance-box-right">
-                    <p>结算总额</p>
+                    <p>交易笔数</p>
                     <div>3355441.81元</div>
                 </div>
             </Col>
@@ -34,7 +34,7 @@
                     <Icon type="logo-yen" class="balance-box-icon" size="36"/>
                 </div>
                 <div class="balance-box-right">
-                    <p>结算总额</p>
+                    <p>代理收入</p>
                     <div>3355441.81元</div>
                 </div>
             </Col>
@@ -57,7 +57,7 @@
 </template>
 <script>
 import {
- ccountList
+ orderList
 } from "@/api/index";
 export default {
     data(){
@@ -67,67 +67,51 @@ export default {
             columns3:[
                  {
                     title: '商户名',
-                    key: 'accountname'
+                    key: 'userName'
                 },
                  {
-                    title: '系统订单号',
-                    key: 'orderid'
+                    title: '系统订单/商户订单',
+                    key: 'userName'
                 },
                  {
-                    title: '结算金额',
-                    key: 'withdrawamount'
+                    title: '创建时间',
+                    key: 'userName'
+                },
+                 {
+                    title: '更新时间',
+                    key: 'userName'
+                },
+                 {
+                    title: '订单金额',
+                    key: 'userName'
                 },
                  {
                     title: '手续费',
-                    key: 'withdrawrate'
+                    key: 'userName'
                 },
                  {
-                    title: '实际结算',
-                    key: 'toamount'
+                    title: '平台收入',
+                    key: 'userName'
                 },
                  {
-                    title: '结算银行',
-                    key: 'branchname'
+                    title: '代理收入',
+                    key: 'userName'
                 },
                  {
-                    title: '开户名',
-                    key: 'accountname'
+                    title: '商户收入',
+                    key: 'userName'
                 },
                  {
-                    title: '银行账户',
-                    key: 'bankcardno'
+                    title: '支付方式',
+                    key: 'userName'
                 },
                  {
-                    title: '申请时间',
-                    key: 'createTime'
+                    title: '订单状态',
+                    key: 'userName'
                 },
                  {
-                    title: '处理时间',
-                    key: 'updateTime'
-                },
-                 {
-                    title: '结算备注',
-                    key: 'comment'
-                },
-                 {
-                    title: '结算状态',
-                    key: 'status',
-                       render:(h,params)=>{
-                           let status = params.row.status
-                           if(status=='0'){
-                                status='未处理'
-                           }else if(status=='1'){
-                                status='处理中'
-                           }else if(status=='2'){
-                                status='已结算'
-                           }else if(status=='3'){
-                                status='结算异常'
-                           }
-                           else{
-                               status='取消结算'
-                           }
-                           return h('span',status)
-                       }
+                    title: '操作',
+                    key: 'userName'
                 },
             ]
         }
@@ -146,9 +130,9 @@ export default {
                             "startDate":''
                             }
                         }
-            ccountList(params).then(res => {
+            orderList(params).then(res => {
                  console.log(res)
-                 this.dataList=res.data.pageInfo.list
+                 this.dataList=res.data.list
                 }).catch(err => {
                     this.treeLoading = false;
                 });

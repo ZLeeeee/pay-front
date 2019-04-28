@@ -21,6 +21,7 @@ import {
 export default {
     data(){
         return{
+            statetext:'',
             channelPaymentId:'',
             account:'',
             startTime:'',
@@ -63,9 +64,10 @@ export default {
                     title: '今日成功率',
                     key: 'sucRates'
                 },
+
                  {
                     title: '状态',
-                    key: 'merchant',
+                    key: 'status',
                     render:(h,params)=>{
                            return h('div',[
                                h('strong',{
@@ -76,6 +78,7 @@ export default {
                                h('i-switch',{
                                    props: {
                                     type: 'primary',
+                                     size:"large",
                                     value: params.row.status===0
                                     },
                                 style: {
@@ -83,10 +86,24 @@ export default {
                                     },
                                     on:{
                                          'on-change': (value) => {
-                                            
                                          }
                                     }
-                               })
+                               },
+                               [
+                                h('span',{
+                                      slot: "open",
+                                        domProps: {
+                                            innerHTML: '开启'
+                                        }
+                                }),
+                                 h('span',{
+                                      slot: "close",
+                                        domProps: {
+                                            innerHTML: '禁用'
+                                        }
+                                }),
+                               ]
+                               )
                            ])
                        }
                 }, 

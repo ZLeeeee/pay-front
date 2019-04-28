@@ -87,6 +87,7 @@ eremovepayList
 export default {
     data(){
         return{
+            id:'',
             addpay:false,
             editor:false,
             editordata:{
@@ -171,6 +172,7 @@ export default {
                                             },
                                         on:{
                                              click: () =>{
+                                                this.id= params.row.id
                                                 this.delete()
                                              }
                                         }
@@ -215,10 +217,12 @@ export default {
         //删除
         delete(){
             let params={
-                id:this.editordata.id
+                id:this.id
             }
            eremovepayList(params).then(res=>{
-               console.log(res)
+               if(res.status==0){
+                    this.$Message.success('删除成功');
+                    }
            }).catch(err=>{
 
            })

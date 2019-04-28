@@ -54,6 +54,15 @@ export const page500 = {
     name: 'error-500',
     component: () => import('@/views/error-page/500.vue')
 };
+// export const manage = {
+//     path: '/manage/passageway',
+//     component: Main,
+//     meta: {
+//         title: 'passageway'
+//     },
+//     name: 'passageway',
+//     component: () => import('@/views/manage/passageway.vue')
+// };
 
 export const locking = {
     path: '/locking',
@@ -77,6 +86,7 @@ export const otherRouter = {
         { path: 'resubmit', title: '编辑-税金申请', name: 'resubmit', component: () => import('@/views/audit/tax-ready-handle/huixianshujuyemian') },
         { path: 'details', title: '统计分析', name: 'details', component: () => import('@/views/detail/detail') },
         { path: 'reportPaid', title: '上报实缴,并补全资料', name: 'reportPaid', component: () => import('@/views/audit/tax-ready-handle/reportPaid') },
+        { path: 'passageway', title: '用户通道设置', name: 'passageway', component: () => import('@/views/manage/passageway.vue') },
         // {path:"sysSetting",title:"系统设置",name:"sysSetting",component:() => import('@/views/sys/sys-setting/sysSetting')}
     ]
 };
@@ -109,5 +119,5 @@ export const routers = [
     locking,
     // ...appRouter,
     page500,
-    page403,
+    page403
 ];

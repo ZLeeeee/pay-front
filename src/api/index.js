@@ -493,7 +493,16 @@ export const agencyadd=params=>{
   export const merchantList=params=>{
     return postRequest('user/all/byRole',params)
   }
-  //余额加减
+  //编辑用户
+  export const editList=params=>{
+    return postRequest('/user/edit',params)
+  }
+//删除用户
+export const deleteuserList=params=>{
+    return deleteRequest('/user/delByIds/{ids}',params)
+}
+
+//余额加减
   export const subtract =params=>{
     return postRequest('/wallet/amount/edit',params)
   }
@@ -501,6 +510,19 @@ export const agencyadd=params=>{
   export const passagewayList=params=>{
     return postRequest('userRates/get/byUser',params)
   }
+  //通道分页查询
+    export const passagewayfenList=params=>{
+        return postRequest('/channel/all/page',params)
+    }
+    //添加通道
+    export const addpassagewayList=params=>{
+        return postRequest('/channel/add',params)
+    }
+    //删除通道
+    export const delectpassagewayList=params=>{
+        return deleteRequest('/channel/del/{id}',params)
+    }
+
   //编辑用户通道
   export const editorswayList=params=>{
     return postRequest('/userRates/get/byUser',params)
@@ -519,7 +541,7 @@ export const agencyadd=params=>{
   }
 //   删除支付方式
 export const eremovepayList=params=>{
-    return postRequest('/payment/del/{id}',params)
+    return deleteRequest('/payment/del/{id}',params)
   }
 //所有账号列表
 export const accountList=params=>{
@@ -527,9 +549,17 @@ export const accountList=params=>{
   }
   //结算列表
   export const ccountList=params=>{
-    return postRequest('withdraws/all',params)
+    return postRequest('/withdraws/all',params)
   }
   //充值列表
   export const chargeList=params=>{
     return postRequest('/recharges/all/page',params)
+  }
+  //搜索充值列表
+  export const souchargeList=params=>{
+    return postRequest('/recharges/search',params)
+  }
+  //订单列表
+  export const orderList=params=>{
+    return postRequest('/order/all',params)
   }
