@@ -140,10 +140,48 @@ export default {
                     title: '单笔限额',
                     key: 'minAmount'-'maxAmount'
                 },
-                {
-                    title: '支付状态',
-                    key: 'status'
-                },
+               {
+                    title: '状态',
+                    key: 'status',
+                    render:(h,params)=>{
+                           return h('div',[
+                               h('strong',{
+                                   style: {
+                                       marginRight: '5px'
+                                       },
+                               }),
+                               h('i-switch',{
+                                   props: {
+                                    type: 'primary',
+                                     size:"large",
+                                    value: params.row.status===0
+                                    },
+                                style: {
+                                    marginRight: '5px'
+                                    },
+                                    on:{
+                                         'on-change': (value) => {
+                                         }
+                                    }
+                               },
+                               [
+                                h('span',{
+                                      slot: "open",
+                                        domProps: {
+                                            innerHTML: '开启'
+                                        }
+                                }),
+                                 h('span',{
+                                      slot: "close",
+                                        domProps: {
+                                            innerHTML: '禁用'
+                                        }
+                                }),
+                               ]
+                               )
+                           ])
+                       }
+               },
                 {
                     title: '操作',
                      render:(h,params)=>{

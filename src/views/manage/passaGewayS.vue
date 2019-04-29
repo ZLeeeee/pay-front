@@ -3,6 +3,7 @@
         <p class="agency-top-text">通道管理</p>
             <div class="agency-box">
                  <Button type="primary" @click="modal1 = true">添加通道</Button>
+                  <Button type="primary" style="margin-left:10px;" @click="underground">添加通道池</Button>
                  <Table  highlight-row ref="currentRowTable" :columns="columns3" :data="dataList" @on-current-change="handleRowChange" style="margin-top:10px;"></Table>
                  <Modal
                   v-model="modal1"
@@ -81,20 +82,20 @@ export default {
                 },
                 {
                         title: '通道名称',
-                        key: 'channelName'
+                        key: 'channelname'
                     },
                  {
                         title: '通道编码',
-                        key: 'channelCode'
+                        key: 'channelcode'
                     },
                      {
                         title: '费率',
                         key: 'channelquota'
                     },
                      {
-                        title: '接口状态',
-                        key: 'status',
-                          render:(h,params)=>{
+                    title: '接口状态',
+                    key: 'status',
+                    render:(h,params)=>{
                            return h('div',[
                                h('strong',{
                                    style: {
@@ -104,6 +105,7 @@ export default {
                                h('i-switch',{
                                    props: {
                                     type: 'primary',
+                                     size:"large",
                                     value: params.row.status===0
                                     },
                                 style: {
@@ -111,13 +113,27 @@ export default {
                                     },
                                     on:{
                                          'on-change': (value) => {
-                                            
                                          }
                                     }
-                               })
+                               },
+                               [
+                                h('span',{
+                                      slot: "open",
+                                        domProps: {
+                                            innerHTML: '开启'
+                                        }
+                                }),
+                                 h('span',{
+                                      slot: "close",
+                                        domProps: {
+                                            innerHTML: '禁用'
+                                        }
+                                }),
+                               ]
+                               )
                            ])
                        }
-                    },
+               },
                      {
                         title: '操作',
                            render:(h,params)=>{
@@ -201,6 +217,9 @@ export default {
                 }).catch(err => {
                     this.treeLoading = false;
             });
+        },
+        underground(){
+            this.$router.push('/underground')
         }
     }
 }

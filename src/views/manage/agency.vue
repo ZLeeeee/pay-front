@@ -108,6 +108,7 @@ export default {
             agencyName:'',
             status:'',
             fromData:{
+                roleIds:'2',
                 username:'', //用户名
                 password:'', //密码
                 status:'',   //状态
@@ -175,10 +176,10 @@ export default {
                         title: '电话',
                         key: 'mobile'
                     },
-                      {
-                        title: '状态',
-                         key: 'status',
-                       render:(h,params)=>{
+                       {
+                    title: '接口状态',
+                    key: 'status',
+                    render:(h,params)=>{
                            return h('div',[
                                h('strong',{
                                    style: {
@@ -188,6 +189,7 @@ export default {
                                h('i-switch',{
                                    props: {
                                     type: 'primary',
+                                     size:"large",
                                     value: params.row.status===0
                                     },
                                 style: {
@@ -197,10 +199,25 @@ export default {
                                          'on-change': (value) => {
                                          }
                                     }
-                               })
+                               },
+                               [
+                                h('span',{
+                                      slot: "open",
+                                        domProps: {
+                                            innerHTML: '开启'
+                                        }
+                                }),
+                                 h('span',{
+                                      slot: "close",
+                                        domProps: {
+                                            innerHTML: '禁用'
+                                        }
+                                }),
+                               ]
+                               )
                            ])
                        }
-                    },
+               },
                     {     width: 380,
                          title: '操作', 
                          render:(h, params)=>{
@@ -299,6 +316,7 @@ export default {
                 agencyadd(params).then(res => {
                   if(res.status==0){
                     this.$Message.info('新增成功');
+                      this.cc()
                   }
                 }).catch(err => {
                     this.treeLoading = false;
@@ -319,7 +337,7 @@ export default {
             twook(){this.addsubtract()},
             twocancel(){},
             cc(){
-                 let params={"pageVo":{"pageNumber":1,"pageSize":10},"userVo":{"username":"test","roleIds":"666666666666666"},"searchVo":{"startDate":"","endDate":""}}
+                 let params={"pageVo":{"pageNumber":1,"pageSize":10},"userVo":{"roleIds":"2"},"searchVo":{"startDate":"","endDate":""}}
                merchantList(params).then(res => {
                    console.log(res)
                    this.dataList=res.data.list

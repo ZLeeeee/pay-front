@@ -8,7 +8,7 @@
                 </div>
                 <div class="balance-box-right">
                     <p>订单金额</p>
-                    <div>3355441.81元</div>
+                     <div>{{generalAccount.allToAmount}}元</div>
                 </div>
             </Col>
              <Col :span="6" class="balance-box">
@@ -64,6 +64,7 @@ export default {
         return{
             account:'',
             dataList:[],
+            generalAccount:{},
             columns3:[
                  {
                     title: '商户名',
@@ -133,6 +134,7 @@ export default {
             orderList(params).then(res => {
                  console.log(res)
                  this.dataList=res.data.list
+                 this.generalAccount=res.data.generalAccount
                 }).catch(err => {
                     this.treeLoading = false;
                 });

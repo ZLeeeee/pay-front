@@ -8,7 +8,7 @@
                 </div>
                 <div class="balance-box-right">
                     <p>结算总额</p>
-                    <div>3355441.81元</div>
+                    <div>{{generalAccount.allToAmount}}元</div>
                 </div>
             </Col>
              <Col :span="6" class="balance-box">
@@ -16,8 +16,8 @@
                     <Icon type="logo-yen" class="balance-box-icon" size="36"/>
                 </div>
                 <div class="balance-box-right">
-                    <p>结算总额</p>
-                    <div>3355441.81元</div>
+                    <p>手续费</p>
+                    <div>{{generalAccount.allRate}}元</div>
                 </div>
             </Col>
              <Col :span="6" class="balance-box">
@@ -25,8 +25,8 @@
                     <Icon type="logo-yen" class="balance-box-icon" size="36"/>
                 </div>
                 <div class="balance-box-right">
-                    <p>结算总额</p>
-                    <div>3355441.81元</div>
+                    <p>实际结算</p>
+                    <div>{{generalAccount.allAmount}}元</div>
                 </div>
             </Col>
              <Col :span="6" class="balance-box">
@@ -34,8 +34,8 @@
                     <Icon type="logo-yen" class="balance-box-icon" size="36"/>
                 </div>
                 <div class="balance-box-right">
-                    <p>结算总额</p>
-                    <div>3355441.81元</div>
+                    <p>结算笔数</p>
+                    <div>{{generalAccount.allcount}}笔</div>
                 </div>
             </Col>
         </Row>
@@ -64,6 +64,9 @@ export default {
         return{
             account:'',
             dataList:[],
+            generalAccount:{
+
+            },
             columns3:[
                  {
                     title: '商户名',
@@ -149,6 +152,7 @@ export default {
             ccountList(params).then(res => {
                  console.log(res)
                  this.dataList=res.data.pageInfo.list
+                 this.generalAccount=res.data.generalAccount
                 }).catch(err => {
                     this.treeLoading = false;
                 });
