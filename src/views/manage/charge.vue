@@ -2,6 +2,7 @@
     <div>
          <p class="agency-top-text">商户充值</p>
          <div class="agency-box">
+                 <Button type="primary" style="margin-bottom:10px;" @click="accharge">账号充值</Button>
               <Row>
                             <Input v-model="chargedata.orderNo" placeholder="充值订单号" style="width: 150px;margin-right:10px;"/>
                             <Input v-model="chargedata.merchant" placeholder="商户号" style="width: 150px; margin-right:10px;"/>
@@ -85,6 +86,9 @@ export default {
         this.charge()
     },
     methods:{
+        accharge(){
+              this.$router.push('/accharge')
+        },
         charge(){
             let params={
                 pageNumber:"1",

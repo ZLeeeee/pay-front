@@ -51,7 +51,8 @@
 </template>
 <script>
 import {
-undergroundList
+undergroundList,
+payList
 } from "@/api/index";
 export default {
     data(){
@@ -139,6 +140,7 @@ export default {
     },
     mounted(){
         this.underground()
+        this.paymethode()
     },
     methods:{
         ok(){},
@@ -149,12 +151,24 @@ export default {
                 "pageSize":"3"
                 }
             undergroundList(params).then(res => {
-                console.log(res)
+              
                 this.dataList=res.data.list
             }).catch(err => {
                     this.treeLoading = false;
             });
-        }
+        },
+        // 支付方式
+           paymethode(){
+                let params={
+                pageNumber:"1",
+                pageSize:"3"
+             }
+            payList(params).then(res => {
+                 console.log(res)
+                }).catch(err => {
+                    this.treeLoading = false;
+                });
+        },
     }
 }
 </script>

@@ -143,6 +143,11 @@ export default {
               this.setStore("accessToken", res.token);
               // 获取用户信息
               userInfo().then(res => {
+                  console.log(res)
+                  console.log(res.data.id)
+                   console.log(res.data.username)
+                    localStorage.setItem('userid', res.data.id)
+                    localStorage.setItem('username', res.data.username)
                 // 避免超过大小限制
                 delete res.data.permissions;
                 if (this.saveLogin) {
