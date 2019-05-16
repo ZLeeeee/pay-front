@@ -88,6 +88,7 @@ export const otherRouter = {
         { path: 'reportPaid', title: '上报实缴,并补全资料', name: 'reportPaid', component: () => import('@/views/audit/tax-ready-handle/reportPaid') },
         { path: 'passageway', title: '用户通道设置', name: 'passageway', component: () => import('@/views/manage/passageway.vue') },
         { path: 'underground', title: '添加通道池', name: 'underground', component: () => import('@/views/manage/underground.vue') },
+        { path: 'accharge', title: '账户充值', name: 'accharge', component: () => import('@/views/manage/accharge.vue') },
         // {path:"sysSetting",title:"系统设置",name:"sysSetting",component:() => import('@/views/sys/sys-setting/sysSetting')}
     ]
 };

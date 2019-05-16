@@ -57,7 +57,8 @@
 </template>
 <script>
 import {
- ccountList
+ ccountList,
+ withdraws
 } from "@/api/index";
 export default {
     data(){
@@ -67,6 +68,7 @@ export default {
             generalAccount:{
 
             },
+            workid:'',
             columns3:[
                  {
                     title: '商户名',
@@ -132,6 +134,29 @@ export default {
                            return h('span',status)
                        }
                 },
+                 {
+                        title: '操作',
+                           render:(h,params)=>{
+                           return h('div',[
+                               h('Button',{
+                                   props: {
+                                    size: 'small',
+                                    type: 'success'
+                                    },
+                                style: {
+                                    marginRight: '10px'
+                                    },
+                                    on:{
+                                        click: () =>{
+                                            console.log(444)
+                                                this.workid=params.row.id
+                                                this.withdrawsty()
+                                             }
+                                    }
+                               },'确认')
+                           ])
+                       }
+                    },
             ]
         }
     },
@@ -156,6 +181,16 @@ export default {
                 }).catch(err => {
                     this.treeLoading = false;
                 });
+        },
+        withdrawsty(){
+            let params={id:this.workid}
+            withdraws(params).then(res=>{
+               if(res.status==0){
+                this.$Message.info('申请通过');
+               }
+            }).catch(err=>{
+
+            })
         }
     }
 }

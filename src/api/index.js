@@ -567,3 +567,42 @@ export const accountList=params=>{
 export const undergroundList=params=>{
     return postRequest('/accountUppers/all/page',params)
   }
+//   充值余额
+export const rechargesList=params=>{
+    return postRequest('/recharges/add',params)
+  }
+  //   充值条件搜索
+export const searchrechargesList=params=>{
+    return postRequest('/recharges/search',params)
+  }
+//   拼多多账户
+export const pingallList=params=>{
+    return postRequest('pddUser/all',params)
+  }
+  export const pingupdateList=params=>{
+    return postRequest('pddUser/update',params)
+  }
+  export const pingdeleteList=params=>{
+    return postRequest('pddUser/delete',params)
+  }
+  export const pinginsertList=params=>{
+    return postRequest('pddUser/add',params)
+  }
+// 获取所有银行
+export const bankcard=params=>{
+    return getRequest('/bankcard/allBank',params)
+  }
+ // 获取用户信息
+export const usersLiat=params=>{
+    return getRequest('/user/info',params)
+  }
+//   添加银行卡
+export const bankcardadd=params=>{
+    return postRequest('/bankcard/add',params)
+  }
+//   通过结算
+export const withdraws=params=>{
+    return postRequest('/withdraws/pass',params)
+}
+
+

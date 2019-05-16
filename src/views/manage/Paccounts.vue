@@ -18,11 +18,14 @@
                          <FormItem label="token" >
                             <Input v-model="fromData.accesstoken" placeholder="请输入邮箱"/>
                         </FormItem>
+                          <FormItem label="手机号" >
+                            <Input v-model="fromData.phone" placeholder="请输入手机号"/>
+                        </FormItem>
                          <FormItem label="扩展" >
-                            <Input v-model="fromData.extar" placeholder="请输入邮箱"/>
+                            <Input v-model="fromData.extar" placeholder="请输入扩展"/>
                         </FormItem>
                          <FormItem label="备注" >
-                            <Input v-model="fromData.mark" placeholder="请输入邮箱"/>
+                            <Input v-model="fromData.mark" placeholder="请输入备注"/>
                         </FormItem>
                          <FormItem label="状态">
                              <Select v-model="fromData.status">
@@ -45,6 +48,9 @@
                         </FormItem>
                          <FormItem label="token" >
                             <Input v-model="fromlk.accesstoken" placeholder="请输入token"/>
+                        </FormItem>
+                          <FormItem label="手机号码" >
+                            <Input v-model="fromlk.phone" placeholder="请输入手机号"/>
                         </FormItem>
                          <FormItem label="扩展" >
                             <Input v-model="fromlk.extar" placeholder="请输入扩展"/>
@@ -83,7 +89,8 @@ export default {
             pdduid: "",
             addressId:"",
             status: '',
-            accesstoken: ""
+            accesstoken: "",
+            phone:''
             },
                fromlk:{
             id:'',       
@@ -92,7 +99,8 @@ export default {
             pdduid: "",
             addressId:"",
             status: '',
-            accesstoken: ""
+            accesstoken: "",
+            phone:''
             },
                  statusList:[
                 {
@@ -118,6 +126,10 @@ export default {
                         title: '地址ID',
                         key: 'addressId'
                     },
+                     {
+                        title: '手机号',
+                        key: 'phone'
+                    },
                     {
                          title: '扩展',
                         key: 'extar'
@@ -142,8 +154,9 @@ export default {
                                }),
                                h('i-switch',{
                                    props: {
-                                    type: 'primary',
-                                    value: params.row.status===0
+                                     type: 'primary',
+                                     size:"large",
+                                    value: params.row.status===true
                                     },
                                 style: {
                                     marginRight: '5px'
@@ -153,7 +166,21 @@ export default {
                                             
                                          }
                                     }
-                               })
+                               },
+                                     [
+                                h('span',{
+                                      slot: "open",
+                                        domProps: {
+                                            innerHTML: '开启'
+                                        }
+                                }),
+                                 h('span',{
+                                      slot: "close",
+                                        domProps: {
+                                            innerHTML: '禁用'
+                                        }
+                                }),
+                               ])
                            ])
                        }
                     },
@@ -194,6 +221,7 @@ export default {
                                                        this.fromlk.status=params.row.status
                                                        this.fromlk.accesstoken=params.row.accesstoken
                                                         this.fromlk.id=params.row.id 
+                                                        this.fromlk.phone=params.row.phone
                                              }
                                         }
                                  },'编辑'),

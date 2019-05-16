@@ -21,6 +21,9 @@
                          <FormItem label="电话">
                             <Input v-model="fromData.mobile" placeholder="请输入电话"/>
                         </FormItem>
+                         <FormItem label="费率">
+                            <Input v-model="fromData.rate " placeholder="请输入费率"/>
+                        </FormItem>
                          <FormItem label="状态">
                              <Select v-model="fromData.status">
                                 <Option v-for="item in statusList" :key='item.id' :value="item.id">{{item.name}}</Option>
@@ -77,6 +80,9 @@
                          <FormItem label="电话">
                             <Input v-model="from.mobile" placeholder="请输入电话"/>
                         </FormItem>
+                         <FormItem label="费率">
+                            <Input v-model="from.rate" placeholder="请输入电话"/>
+                        </FormItem>
                          <FormItem label="状态">
                              <Select v-model="fromData.status">
                                 <Option v-for="item in statusList" :key='item.id' :value="item.id">{{item.name}}</Option>
@@ -108,6 +114,7 @@ export default {
             agencyName:'',
             status:'',
             fromData:{
+                rate:'',
                 roleIds:'2',
                 username:'', //用户名
                 password:'', //密码
@@ -116,6 +123,7 @@ export default {
                 mobile:'' //手机号
             },
                 from:{
+                    rate:'',
                 id:'',
                 username:'', //用户名
                 password:'', //密码
@@ -163,6 +171,14 @@ export default {
                     {
                         title: '余额',
                         key: 'amount'
+                    },
+                     {
+                        title: 'id',
+                        key: 'id'
+                    },
+                     {
+                        title: '费率',
+                        key: 'rate'
                     },
                      {
                         title: '充值余额',
@@ -254,6 +270,7 @@ export default {
                                                this.from.email= params.row.email
                                                 this.from.mobile= params.row.mobile
                                                  this.from.id= params.row.id
+                                                 this.from.rate=params.row.rate
                                              }
                                         }
                                  },'编辑'),
