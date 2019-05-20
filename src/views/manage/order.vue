@@ -26,7 +26,7 @@
                 </div>
                 <div class="balance-box-right">
                     <p>交易笔数</p>
-                    <div>{{generalAccount.allToAmount}}元</div>
+                    <div>{{generalAccount.total}}笔</div>
                 </div>
             </Col>
              <Col :span="6" class="balance-box">
@@ -34,7 +34,7 @@
                     <Icon type="logo-yen" class="balance-box-icon" size="36"/>
                 </div>
                 <div class="balance-box-right">
-                    <p>系统收入</p>
+                    <p>用户收入</p>
                     <div>{{generalAccount.allUserMount}}元</div>
                 </div>
             </Col>
@@ -44,11 +44,14 @@
                     <Input   placeholder="系统订单号" style="width: 150px; margin-left:10px;" v-model="account" class="fl"/>
                      <Input   placeholder="商户订单号" style="width: 150px; margin-left:10px;" v-model="account" class="fl"/>
                       <Input   placeholder="商户号" style="width: 150px; margin-left:10px;" v-model="account" class="fl"/>
-                       <Input   placeholder="创建时间" style="width: 150px; margin-left:10px;" v-model="account" class="fl"/>
+                       <!-- <Input   placeholder="创建时间" style="width: 150px; margin-left:10px;" v-model="account" class="fl"/> -->
                         <Input   placeholder="系统订单号" style="width: 150px; margin-left:10px;" v-model="account" class="fl"/>
                          <Button type="primary">查询</Button>
                </Row>  
                 <Table  highlight-row ref="currentRowTable" :columns="columns3" :data="dataList"  style="margin-top:10px;"></Table>  
+                  <Row type="flex" justify="end" style="margin-top:10px;">
+                    <Page :total="totals"  :page-size="table_limit" show-total :current='table_current' @on-change="changepage"/>
+                </Row>
            </div>    
         <div>
 
@@ -62,6 +65,9 @@ import {
 export default {
     data(){
         return{
+            totals:0,
+            table_limit: 10,
+           table_current: 1,
             account:'',
             dataList:[],
             generalAccount:{
@@ -69,7 +75,8 @@ export default {
             allAmount: "",
             allUserMount: "",
             allOrderRate: "",
-            allAgentAmount:""
+            allAgentAmount:"",
+            total:''
             },
             columns3:[
                  {
@@ -107,7 +114,8 @@ export default {
                            return h('div',[
                                h('strong',{
                                    style: {
-                                       marginRight: '5px'
+                                       marginRight: '5px',
+                                         width:'70px'
                                        },
                                }),
                                h('i-switch',{
@@ -117,7 +125,8 @@ export default {
                                     value: params.row.status===0
                                     },
                                 style: {
-                                    marginRight: '5px'
+                                    marginRight: '5px',
+                                    width:'70px'
                                     },
                                     on:{
                                          'on-change': (value) => {
@@ -128,13 +137,13 @@ export default {
                                 h('span',{
                                       slot: "open",
                                         domProps: {
-                                            innerHTML: '开启'
+                                            innerHTML: '已支付'
                                         }
                                 }),
                                  h('span',{
                                       slot: "close",
                                         domProps: {
-                                            innerHTML: '禁用'
+                                            innerHTML: '未支付'
                                         }
                                 }),
                                ]
@@ -153,8 +162,11 @@ export default {
         this.ccount()
     },
     methods:{
+          changepage(index){
+              
+            },
         ccount(){
-            let params={"pageVo":{"pageSize":10,"pageNumber":"1"},
+            let params={"pageVo":{"pageSize":this.table_limit,"pageNumber":this.table_current},
                         "withdrawsVo":{
                            
                     
@@ -166,7 +178,9 @@ export default {
             orderList(params).then(res => {
                  console.log(res)
                  this.dataList=res.data.pageInfo.list
-                 this.generalAccount=res.data.generalAccount
+                 this.totals=res.data.pageInfo.total
+                 this.generalAccount=res.data.generalAccount,
+                 this.generalAccount.total=res.data.pageInfo.total
                 }).catch(err => {
                     this.treeLoading = false;
                 });

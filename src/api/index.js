@@ -604,5 +604,20 @@ export const bankcardadd=params=>{
 export const withdraws=params=>{
     return postRequest('/withdraws/pass',params)
 }
-
+//结算银行卡
+export const byUser=params=>{
+    return postRequest('/bankcard/all/byUser',params)
+}
+// 结算申请
+export const account=params=>{
+    return postRequest('/withdraws/add',params)
+}
+// 结算账单
+export const accountall=params=>{
+    return postRequest('/withdraws/all',params)
+}
+// 获取余额
+export const userget=params=>{
+    return getRequest('/user/get',params)
+}
 

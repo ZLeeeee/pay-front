@@ -3,7 +3,7 @@
     <Col :xs="{span:22}" style="width: 368px;">
     <Row class="header">
       <!-- <img src="../assets/xboot.png" width="220px" /> -->
-      <div class="description">税务管理系统</div>
+      <div class="description">后台管理系统</div>
     </Row>
 
     <Alert type="error" show-icon v-if="error">{{errorMsg}}</Alert>

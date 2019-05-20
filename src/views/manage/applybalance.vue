@@ -4,34 +4,38 @@
             <Col span="6">
                 <Card>
                     <p slot="title">结算申请</p>
-                    <div class="Card-cpde">
-                         提现金额:<Input v-model="actualAmount" style="width: 300px"/>
+                      <div class="Card-cpde">
+                         当前余额:<Input v-model="amount" style="width: 300px"/>
                     </div>
                     <div class="Card-cpde">
-                            银行卡 <Button type="primary" @click="modal1 = true" style="margin-left:10px;">选择银行卡</Button>
+                         提现金额:<Input v-model="withdrawamount" style="width: 300px"/>
+                    </div>
+                    <div class="Card-cpde">
+                            银行卡 <Button type="primary" @click="bank" style="margin-left:10px;">选择银行卡</Button>
                                   <Button type="primary" @click="modal2 = true" style="margin-left:10px;">添加银行卡</Button>  
                     </div>
                       <div class="Card-cpde">
-                         持卡姓名:<Input v-model="actualAmount" style="width: 300px"/>
+                         持卡姓名:<Input v-model="usernn" disabled  style="width: 300px"/>
                     </div>
                       <div class="Card-cpde">
-                         支行名称:<Input v-model="actualAmount" style="width: 300px"/>
+                         支行名称:<Input v-model="branchName" disabled  style="width: 300px"/>
                     </div>
                       <div class="Card-cpde">
-                         银行卡号:<Input v-model="actualAmount" style="width: 300px"/>
+                         银行卡号:<Input v-model="bankCardNo" disabled  style="width: 300px"/>
                     </div>
-                     <div class="Card-cpde">
-                        <Button type="primary" @click='recharges'>立即支付</Button>
+                     <div class="Card-cpde" style="text-align:center;">
+                        <Button type="primary" @click='recharges'>申请结算</Button>
                      </div>
                 </Card>
             </Col>
             <Modal
                     v-model="modal1"
-                    title="添加银行卡"
+                    title="选择银行卡"
+                    width=780px;
                     @on-ok="ok1"
                     @on-cancel="cancel1"
             >
-            <p>444</p>
+                <Table  highlight-row ref="currentRowTable" :columns="columns" :data="dataList2"   @on-current-change="handleRowChange" style="margin-top:10px;"></Table>
             </Modal>    
              <Modal
                     v-model="modal2"
@@ -57,10 +61,10 @@
              </Modal>        
             <Col span="16" style="margin-left:60px;">
                 <Card>
-                    <p slot="title">充值记录</p> 
-                    <Input v-model="orderNo" placeholder="订单号" style="width: 200px"/>
-                    <Button type="primary" style="margin-left:10px;">查询</Button>
-                     <Table  highlight-row ref="currentRowTable" :columns="columns3" :data="dataList"  style="margin-top:10px;"></Table>
+                    <p slot="title">申请记录</p> 
+                    <!-- <Input v-model="orderNo" placeholder="订单号" style="width: 200px"/> -->
+                    <!-- <Button type="primary" style="margin-left:10px;">查询</Button> -->
+                     <Table  highlight-row ref="currentRowTable" :columns="columns3" :data="dataList3"  style="margin-top:10px;"></Table>
                 </Card>     
             </Col>
         </Row>    
@@ -70,11 +74,22 @@
 import {
 bankcard,
 usersLiat,
-bankcardadd
+bankcardadd,
+byUser,
+account,
+accountall,
+userget
 } from "@/api/index";
 export default {
     data(){
         return{
+            amount:'',
+            agentId:'',
+            banknamess:'',
+            withdrawamount:'',
+            usernn:'',
+            branchName:'',
+            bankCardNo:'',
             modal1:false,
             modal2:false,
          orderNo:'',
@@ -89,47 +104,133 @@ export default {
              accountName:'',
              branchName:''
          },
-         dataList:[],
-         columns3:[
+         columns:[
+            {
+                type: 'index',
+                width: 60,
+                align: 'center'
+            },  
              {
-                title: '订单号',
-                key: 'orderno'
+                title: '银行名称',
+                key: 'bankName'
             }, 
              {
-                title: '实付金额',
-                key: 'actualAmount'
-            },
+                title: '支行名称',
+                key: 'branchName'
+            }, 
              {
-                title: '支付时间',
+                title: '银行卡号',
+                key: 'bankCardNo'
+            }, 
+             {
+                title: '持卡人',
+                key: 'userName'
+            }, 
+             {
+                title: '创建时间',
                 key: 'createTime'
+            }, 
+
+         ],
+         dataList2:[],
+         dataList:[],
+         dataList3:[],
+         columns3:[
+             {
+                title: '银行名称',
+                key: 'bankname'
+            }, 
+             {
+                title: '银行卡号',
+                key: 'bankcardno'
             },
              {
-                    title: '结算状态',
-                    key: 'payStatus',
+                title: '提现额度',
+                key: 'withdrawamount'
+            },
+              {
+                title: '提现手续费',
+                key: 'withdrawrate'
+            },
+              {
+                title: '到账金额',
+                key: 'toamount'
+            },
+             {
+                    title: '状态',
+                    key: 'status',
                        render:(h,params)=>{
-                           let payStatus = params.row.payStatus
-                           if(payStatus=='0'){
-                                payStatus='未支付'
-                           }else if(payStatus=='1'){
-                                payStatus='已支付'
-                           }else if(payStatus=='3'){
-                                payStatus='异常'
+                           let status = params.row.status
+                           if(status=='0'){
+                                status='未支付'
+                           }else if(status=='1'){
+                                status='已支付'
+                           }else if(status=='2'){
+                                status='已结算'
+                           } else if(status=='3'){
+                                status='异常'
                            }
-                           return h('span',payStatus)
+                           return h('span',status)
                        }
                 }
          ]   
         }
     },
     mounted(){
+        this.acquire()
        this.bankcardlist()
        this.user()
-       
-         this.fromData.userId=this.userid
+       this.fromData.userId=this.userid
+       this.accountList()
     }, 
     methods:{
-      recharges(){},
-      ok1(){},
+      recharges(){
+          if(this.withdrawamount>this.amount){
+              this.$Message.error('提现金额不能大于余额');
+          }
+          let params={
+       bankname: this.banknamess,
+      withdrawamount: this.withdrawamount,
+      accountname: this.branchName,
+      bankcardno: this.bankCardNo
+          }
+         account(params).then(res=>{
+              if(res.status==0){
+                    this.$Message.success('结算成功');
+                    this.accountList()
+                }
+         }).catch(res=>{
+             
+         }) 
+      },
+      bank(){
+           this.modal1=true
+
+           byUser().then(res=>{
+               console.log(res)
+               this.dataList2=res.data
+           }).catch(res=>{
+
+           })
+      },
+      acquire(){
+          userget().then(res=>{
+              this.amount=res.data.amount
+          }).catch(res=>{
+
+          })
+      },
+      handleRowChange(currentRow){
+          this.modal1=false
+          this.branchName=currentRow.branchName
+          this.bankCardNo=currentRow.bankCardNo
+          this.usernn=currentRow.userName
+          this.banknamess=currentRow.bankName
+          this.agentId=currentRow.id
+      },
+      ok1(){
+
+      },
       cancel1(){},
       ok2(){
           console.log(this.fromData)
@@ -156,7 +257,17 @@ export default {
  }).catch(err=>{
                this.treeLoading = false;
           })
-      }
+      },
+    //   结算省请接口
+    accountList(){
+        let params={"pageVo":{"pageNumber":1,"pageSize":10},"withdrawsVo":{"roleIds":"2"},"searchVo":{"startDate":"","endDate":""}}
+        accountall(params).then(res=>{
+            console.log(res)
+            this.dataList3=res.data.pageInfo.list
+        }).catch(err=>{
+
+        })
+    }
     }
 }
 </script>

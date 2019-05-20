@@ -8,7 +8,7 @@
       <scroll-bar ref="scrollBar">
         <shrinkable-menu :shrink="shrink" @on-change="handleSubmenuChange" :theme="menuTheme" :before-push="beforePush" :open-names="openedSubmenuArr" :menu-list="menuList">
           <div slot="top" class="logo-con">
-            税务管理系统
+            后台管理系统
           </div>
         </shrinkable-menu>
       </scroll-bar>
