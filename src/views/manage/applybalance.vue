@@ -163,6 +163,14 @@ export default {
                 title: '到账金额',
                 key: 'toamount'
             },
+               {
+                title: '申请时间',
+                key: 'createTime'
+            },
+               {
+                title: '处理时间',
+                key: 'updateTime'
+            },
              {
                     title: '状态',
                     key: 'status',

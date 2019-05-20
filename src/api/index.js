@@ -137,9 +137,9 @@ export const deleteDict = (id, params) => {
     return deleteRequest(`/dict/del/${id}`, params)
 }
 // 通过类型查询字典集合
-export const getDictListDataByType = (typeId, params) => {
-    return getRequest(`/dict/getByType/${typeId}`, params)
-}
+// export const getDictListDataByType = (typeId, params) => {
+//     return getRequest(`/dict/getByType/${typeId}`, params)
+// }
 
 // 获取用户数据 多条件
 export const getUserListData = (params) => {
@@ -269,9 +269,9 @@ export const deleteAllLog = (params) => {
 
 
 // 分页获取定时任务数据
-export const getQuartzListData = (params) => {
-    return postRequest('/schedual/getAllByPage', params)
-}
+// export const getQuartzListData = (params) => {
+//     return postRequest('/schedual/getAllByPage', params)
+// }
 // 添加定时任务
 export const addQuartz = (params) => {
     return postRequest('/schedual/add', params)
@@ -394,9 +394,9 @@ export const editSchedualList = params => {
 }
 
 // 查询调度
-export const getSchedualList = params => {
-    return postRequest('/schedual/getAllByPage', params)
-}
+// export const getSchedualList = params => {
+//     return postRequest('/schedual/getAllByPage', params)
+// }
 
 // 暂停调度
 export const schedualPause = params => {
@@ -466,9 +466,9 @@ export const editSysConfig=params=>{
   return postRequest("/sysConfig/editConfig",params)
 }
 // 获取上传文件类型
-export const getFileType=params=>{
-  return getRequest(`/sysConfig/getMsg/${params}`)
-}
+// export const getFileType=params=>{
+//   return getRequest(`/sysConfig/getMsg/${params}`)
+// }
 // 获取角色下的人员
 export const getUserListByRoleCode=params=>{
   return getRequest(`/user/getUsers/${params}`)

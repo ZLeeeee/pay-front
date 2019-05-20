@@ -230,7 +230,7 @@
 </template>
 
 <script>
-import { taxAlreadyHandle,getTaxAuditLog,getAllCompany,getUserListData,exportExcel,getDictListDataByType } from "@/api/index.js";
+import { taxAlreadyHandle,getTaxAuditLog,getAllCompany,getUserListData,exportExcel } from "@/api/index.js";
 import Cookies from "js-cookie";
 import fileLoadPath from '@/api/fileload';
 import { getStore } from '@/libs/storage';
@@ -599,24 +599,24 @@ export default {
     },
     init() {
       this.initPageData();
-      getDictListDataByType(dictType.currency)
-        .then(res => {
-          let map = new Map()
-          this.dictCurrencys = res.data;
-          res.data.map((item,index)=>{
-            map.set(item.code,item.name)
-          })
-          this.dictCurrencysMap = map
-        });
-      getDictListDataByType(dictType.taxCategory)
-        .then(res => {
-          this.dictTaxCategorys = res.data;
-          let maps = new Map()
-          res.data.map((item,index)=>{
-            maps.set(item.code,item.name)
-          })
-          this.dictTaxCategorysMap = maps
-        })
+      // getDictListDataByType(dictType.currency)
+      //   .then(res => {
+      //     let map = new Map()
+      //     this.dictCurrencys = res.data;
+      //     res.data.map((item,index)=>{
+      //       map.set(item.code,item.name)
+      //     })
+      //     this.dictCurrencysMap = map
+      //   });
+      // getDictListDataByType(dictType.taxCategory)
+      //   .then(res => {
+      //     this.dictTaxCategorys = res.data;
+      //     let maps = new Map()
+      //     res.data.map((item,index)=>{
+      //       maps.set(item.code,item.name)
+      //     })
+      //     this.dictTaxCategorysMap = maps
+      //   })
     },
     initPageData() {
       this.loading = true;

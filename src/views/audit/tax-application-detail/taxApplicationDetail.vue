@@ -96,7 +96,7 @@
 <script>
 import {
   getAllCompany,  // 获取所有公司
-  getDictListDataByType,  // 根据类型获取字典信息
+  // getDictListDataByType,  // 根据类型获取字典信息
   getCompanyByName,   // 根据公司名称获取公司详情
   taxDetail,    // 获取税金申请详情（待提申请）
   taxReplenishment,    // 补充税金申请
