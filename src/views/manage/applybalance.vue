@@ -8,7 +8,7 @@
                          提现金额:<Input v-model="actualAmount" style="width: 300px"/>
                     </div>
                     <div class="Card-cpde">
-                            银行卡 <Button type="primary" style="margin-left:10px;">选择银行卡</Button>
+                            银行卡 <Button type="primary" @click="modal1 = true" style="margin-left:10px;">选择银行卡</Button>
                                   <Button type="primary" @click="modal2 = true" style="margin-left:10px;">添加银行卡</Button>  
                     </div>
                       <div class="Card-cpde">
@@ -25,6 +25,14 @@
                      </div>
                 </Card>
             </Col>
+            <Modal
+                    v-model="modal1"
+                    title="添加银行卡"
+                    @on-ok="ok1"
+                    @on-cancel="cancel1"
+            >
+            <p>444</p>
+            </Modal>    
              <Modal
                     v-model="modal2"
                     title="添加银行卡"
@@ -67,6 +75,7 @@ bankcardadd
 export default {
     data(){
         return{
+            modal1:false,
             modal2:false,
          orderNo:'',
          userid:'',
@@ -120,6 +129,8 @@ export default {
     }, 
     methods:{
       recharges(){},
+      ok1(){},
+      cancel1(){},
       ok2(){
           console.log(this.fromData)
           let params=this.fromData

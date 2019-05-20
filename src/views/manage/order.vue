@@ -8,7 +8,7 @@
                 </div>
                 <div class="balance-box-right">
                     <p>订单金额</p>
-                     <div>{{generalAccount.allToAmount}}元</div>
+                     <div>{{generalAccount.allAmount}}元</div>
                 </div>
             </Col>
              <Col :span="6" class="balance-box">
@@ -17,7 +17,7 @@
                 </div>
                 <div class="balance-box-right">
                     <p>手续费</p>
-                    <div>3355441.81元</div>
+                    <div>{{generalAccount.sysAmount}}元</div>
                 </div>
             </Col>
              <Col :span="6" class="balance-box">
@@ -26,7 +26,7 @@
                 </div>
                 <div class="balance-box-right">
                     <p>交易笔数</p>
-                    <div>3355441.81元</div>
+                    <div>{{generalAccount.allToAmount}}元</div>
                 </div>
             </Col>
              <Col :span="6" class="balance-box">
@@ -34,8 +34,8 @@
                     <Icon type="logo-yen" class="balance-box-icon" size="36"/>
                 </div>
                 <div class="balance-box-right">
-                    <p>代理收入</p>
-                    <div>3355441.81元</div>
+                    <p>系统收入</p>
+                    <div>{{generalAccount.allUserMount}}元</div>
                 </div>
             </Col>
         </Row>
@@ -64,56 +64,88 @@ export default {
         return{
             account:'',
             dataList:[],
-            generalAccount:{},
+            generalAccount:{
+              sysAmount: "",
+            allAmount: "",
+            allUserMount: "",
+            allOrderRate: "",
+            allAgentAmount:""
+            },
             columns3:[
                  {
                     title: '商户名',
-                    key: 'userName'
+                    key: 'merchant'
                 },
                  {
                     title: '系统订单/商户订单',
-                    key: 'userName'
+                    key: 'orderno'
                 },
                  {
                     title: '创建时间',
-                    key: 'userName'
-                },
-                 {
-                    title: '更新时间',
-                    key: 'userName'
+                    key: 'createTime'
                 },
                  {
                     title: '订单金额',
-                    key: 'userName'
+                    key: 'amount'
                 },
                  {
                     title: '手续费',
-                    key: 'userName'
+                    key: 'orderrate'
                 },
                  {
                     title: '平台收入',
-                    key: 'userName'
-                },
-                 {
-                    title: '代理收入',
-                    key: 'userName'
+                    key: 'sysamount'
                 },
                  {
                     title: '商户收入',
-                    key: 'userName'
+                    key: 'useramount'
                 },
-                 {
-                    title: '支付方式',
-                    key: 'userName'
-                },
-                 {
-                    title: '订单状态',
-                    key: 'userName'
-                },
-                 {
-                    title: '操作',
-                    key: 'userName'
-                },
+                         {
+                    title: '状态',
+                    key: 'status',
+                    render:(h,params)=>{
+                           return h('div',[
+                               h('strong',{
+                                   style: {
+                                       marginRight: '5px'
+                                       },
+                               }),
+                               h('i-switch',{
+                                   props: {
+                                    type: 'primary',
+                                     size:"large",
+                                    value: params.row.status===0
+                                    },
+                                style: {
+                                    marginRight: '5px'
+                                    },
+                                    on:{
+                                         'on-change': (value) => {
+                                         }
+                                    }
+                               },
+                               [
+                                h('span',{
+                                      slot: "open",
+                                        domProps: {
+                                            innerHTML: '开启'
+                                        }
+                                }),
+                                 h('span',{
+                                      slot: "close",
+                                        domProps: {
+                                            innerHTML: '禁用'
+                                        }
+                                }),
+                               ]
+                               )
+                           ])
+                       }
+                }
+                //  {
+                //     title: '操作',
+                //     key: 'userName'
+                // },
             ]
         }
     },
@@ -133,7 +165,7 @@ export default {
                         }
             orderList(params).then(res => {
                  console.log(res)
-                 this.dataList=res.data.list
+                 this.dataList=res.data.pageInfo.list
                  this.generalAccount=res.data.generalAccount
                 }).catch(err => {
                     this.treeLoading = false;
