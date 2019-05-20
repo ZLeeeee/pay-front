@@ -5,8 +5,14 @@
                 <Card>
                     <p slot="title">结算申请</p>
                       <div class="Card-cpde">
-                         当前余额:<Input v-model="amount" style="width: 300px"/>
+                         当前余额:<Input v-model="amount" disabled style="width: 300px"/>
                     </div>
+                      <div class="Card-cpde">
+                        <p style="color:red;">手续费：5元</p>
+                    </div>
+                    <!-- <div class="Card-cpde">
+                         手续费:<Input v-model="withdrawamount" disabled style="width: 300px"/>
+                    </div> -->
                     <div class="Card-cpde">
                          提现金额:<Input v-model="withdrawamount" style="width: 300px"/>
                     </div>
@@ -185,23 +191,24 @@ export default {
     }, 
     methods:{
       recharges(){
-          if(this.withdrawamount>this.amount){
+          if(this.withdrawamount>this.amount-5){
               this.$Message.error('提现金额不能大于余额');
-          }
-          let params={
-       bankname: this.banknamess,
-      withdrawamount: this.withdrawamount,
-      accountname: this.branchName,
-      bankcardno: this.bankCardNo
-          }
-         account(params).then(res=>{
-              if(res.status==0){
-                    this.$Message.success('结算成功');
-                    this.accountList()
+          }else{
+            let params={
+            bankname: this.banknamess,
+            withdrawamount: this.withdrawamount,
+            branchName: this.branchName,
+            bankcardno: this.bankCardNo
                 }
-         }).catch(res=>{
-             
-         }) 
+                account(params).then(res=>{
+                    if(res.status==0){
+                            this.$Message.success('结算成功');
+                            this.accountList()
+                        }
+                }).catch(res=>{
+                    
+                })
+          }
       },
       bank(){
            this.modal1=true

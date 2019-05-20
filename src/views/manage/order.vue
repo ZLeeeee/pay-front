@@ -67,7 +67,7 @@ export default {
         return{
             totals:0,
             table_limit: 10,
-           table_current: 1,
+           table_current: '',
             account:'',
             dataList:[],
             generalAccount:{
