@@ -1,17 +1,31 @@
 <template>
     <div id="main" class="app-main">
-        <router-view></router-view>
+        <router-view  v-if="isRouterAlive"></router-view>
     </div>
 </template>
 
 <script>
 export default {
   data() {
-    return {};
+    return {
+       isRouterAlive: true
+    };
+  },
+    provide () {
+    return {
+      reload: this.reload
+    }
   },
   mounted() {},
   beforeDestroy() {},
-  methods: {}
+  methods: {
+       reload () {
+      this.isRouterAlive = false
+      this.$nextTick(function () {
+        this.isRouterAlive = true
+      })
+    }
+  }
 };
 </script>
 

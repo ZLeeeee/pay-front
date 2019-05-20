@@ -50,7 +50,7 @@
                </Row>  
                 <Table  highlight-row ref="currentRowTable" :columns="columns3" :data="dataList"  style="margin-top:10px;"></Table>  
                   <Row type="flex" justify="end" style="margin-top:10px;">
-                    <Page :total="totals"  :page-size="table_limit" show-total :current='table_current' @on-change="changepage"/>
+                    <Page :total="totals"  :page-size="table_limit" show-total :current='table_current' @on-change="ccount"/>
                 </Row>
            </div>    
         <div>
@@ -67,7 +67,7 @@ export default {
         return{
             totals:0,
             table_limit: 10,
-           table_current: '',
+           table_current: 1,
             account:'',
             dataList:[],
             generalAccount:{
@@ -162,11 +162,8 @@ export default {
         this.ccount()
     },
     methods:{
-          changepage(index){
-              
-            },
-        ccount(){
-            let params={"pageVo":{"pageSize":this.table_limit,"pageNumber":this.table_current},
+        ccount(page){
+            let params={"pageVo":{"pageSize":this.table_limit, "pageNumber":page},
                         "withdrawsVo":{
                            
                     

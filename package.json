@@ -1,7 +1,7 @@
 {
   "name": "tax-client",
   "version": "0.1.0",
-  "description": "税务管理系统",
+  "description": "后台管理系统",
   "author": "yangjin_yj@qq.com",
   "private": true,
   "scripts": {

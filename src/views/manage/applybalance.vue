@@ -87,6 +87,7 @@ accountall,
 userget
 } from "@/api/index";
 export default {
+    inject:['reload'],
     data(){
         return{
             amount:'',
@@ -168,7 +169,7 @@ export default {
                        render:(h,params)=>{
                            let status = params.row.status
                            if(status=='0'){
-                                status='未支付'
+                                status='申请中'
                            }else if(status=='1'){
                                 status='已支付'
                            }else if(status=='2'){
@@ -204,6 +205,7 @@ export default {
                     if(res.status==0){
                             this.$Message.success('结算成功');
                             this.accountList()
+                            this.reload()
                         }
                 }).catch(res=>{
                     

@@ -187,6 +187,7 @@ export default {
             withdraws(params).then(res=>{
                if(res.status==0){
                 this.$Message.info('申请通过');
+                this.ccount()
                }
             }).catch(err=>{
 
