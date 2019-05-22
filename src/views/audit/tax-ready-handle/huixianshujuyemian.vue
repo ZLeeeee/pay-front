@@ -42,7 +42,7 @@
               </Option>
             </Select>
           </Form-item>
-          <Form-item label="税务识别号码" prop="tin">
+          <Form-item label="后台识别号码" prop="tin">
             <Input type="text" v-model="form.tin" disabled style="width: 200px" class="my-input" placeholder=""/>
           </Form-item>
           <Form-item label="国家" prop="countryCode">

@@ -620,4 +620,24 @@ export const accountall=params=>{
 export const userget=params=>{
     return getRequest('/user/get',params)
 }
+// 拼多多商家列表
+export const pddAccount=params=>{
+    return postRequest('/pddAccount/all/page',params)
+}
+// 添加商铺
+export const addpddAccount=params=>{
+    return postRequest('pddAccount/add',params)
+}
+// 更新店铺
+export const editpddAccount=params=>{
+    return postRequest('pddAccount/edit',params)
+}
+// 管理商铺
+export const getpddAccount=params=>{
+    return postRequest('/goods/get',params)
+}
+// 编辑管理商铺
+export const editgetpddAccount=params=>{
+    return postRequest('/goods/edit',params)
+}
 

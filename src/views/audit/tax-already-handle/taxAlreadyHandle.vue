@@ -61,7 +61,7 @@
                 <tr>
                   <td width="82">公司名称</td>
                   <td colspan="5" width="504">{{tableList[0].companyName}}</td>
-                  <td width="100">税务识别号码</td>
+                  <td width="100">后台识别号码</td>
                   <td colspan="5" width="502">{{tableList[0].tin}}</td>
                 </tr>
                 <tr>

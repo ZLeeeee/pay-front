@@ -39,7 +39,7 @@
             <FormItem label="公司名称" prop="name">
               <Input v-model="form.name" placeholder="请输入公司名称" clearable :maxlength="20"/>
             </FormItem>
-            <FormItem label="税务识别号码" prop="tin">
+            <FormItem label="后台识别号码" prop="tin">
               <Input v-model="form.tin" clearable :maxlength="20"/>
             </FormItem>
             <FormItem label="所属国家" prop="countryCode">
@@ -79,7 +79,7 @@
         <Modal title="分配人员" v-model="userListModel" :mask-closable='false' :width="700" >
           <main style="max-height: 500px;overflow: auto;">
             <Tabs :animated="false">
-                <TabPane label="税务专员">
+                <TabPane label="后台专员">
                   <Table border
                   ref="taxationUserListSelectionChange"
                   :columns="userListTable"
@@ -184,7 +184,7 @@ export default {
           { required: true, message: "公司名称不能为空", trigger: "blur" }
         ],
         tin: [
-          { required: true, message: "税务识别编号不能为空", trigger: "blur" }
+          { required: true, message: "后台识别编号不能为空", trigger: "blur" }
         ],
         countryCode: [
           { required: true, message: "所属国家不能为空", trigger: "blur" }
@@ -217,7 +217,7 @@ export default {
           // width: 200
         },
         {
-          title: "税务识别号码",
+          title: "后台识别号码",
           key: "tin",
           sortable: true,
           // width: 140
@@ -448,7 +448,7 @@ export default {
       })
 
       if(temptaxationIds.length>1) {
-        this.$Message.error("只能选择一个税务专员")
+        this.$Message.error("只能选择一个后台专员")
         return
       }
 

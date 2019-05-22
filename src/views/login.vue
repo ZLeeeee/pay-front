@@ -159,7 +159,7 @@ export default {
                   Cookies.set("userInfo", JSON.stringify(res.data));
                 }
                 this.setStore("userInfo", res.data);
-                //判断角色里是否包含税务专员
+                //判断角色里是否包含后台专员
                 let isROLE_COMMISSIONER_OF_TAX=res.data.roles.some((item,index)=>{
                    return item.code =="ROLE_COMMISSIONER_OF_TAX"
                 })

@@ -8,7 +8,7 @@ let util = {
 };
 
 util.title = function (title) {
-    title = title || '税务管理系统';
+    title = title || '后台管理系统';
     window.document.title = title;
 };
 
@@ -327,7 +327,7 @@ util.initRouterNode = function (routers, data) {
         let meta = {};
         // 给页面添加权限、标题、第三方网页链接
         meta.permTypes = menu.permTypes ? menu.permTypes : null;
-        meta.title = menu.title ? menu.title + " - 税务管理系统" : null;
+        meta.title = menu.title ? menu.title + " - 后台管理系统" : null;
         meta.url = menu.url ? menu.url : null;
         menu.meta = meta;
 

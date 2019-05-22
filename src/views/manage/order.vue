@@ -110,45 +110,14 @@ export default {
                          {
                     title: '状态',
                     key: 'status',
-                    render:(h,params)=>{
-                           return h('div',[
-                               h('strong',{
-                                   style: {
-                                       marginRight: '5px',
-                                         width:'70px'
-                                       },
-                               }),
-                               h('i-switch',{
-                                   props: {
-                                    type: 'primary',
-                                     size:"large",
-                                    value: params.row.status===0
-                                    },
-                                style: {
-                                    marginRight: '5px',
-                                    width:'70px'
-                                    },
-                                    on:{
-                                         'on-change': (value) => {
-                                         }
-                                    }
-                               },
-                               [
-                                h('span',{
-                                      slot: "open",
-                                        domProps: {
-                                            innerHTML: '已支付'
-                                        }
-                                }),
-                                 h('span',{
-                                      slot: "close",
-                                        domProps: {
-                                            innerHTML: '未支付'
-                                        }
-                                }),
-                               ]
-                               )
-                           ])
+                        render:(h,params)=>{
+                           let status = params.row.status
+                           if(status=='0'){
+                                status='未支付'
+                           }else if(status=='1'){
+                                 status='已支付'
+                           }
+                           return h('span',status)
                        }
                 }
                 //  {

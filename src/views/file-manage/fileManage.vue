@@ -80,7 +80,7 @@ export default {
       materialTypeDicts: {
         'PRE_TAX_REPORT':"预申报表",
         'FINANCE_REPORT': '财务报表',
-        'TAX_REPORT': '税务申报表',
+        'TAX_REPORT': '后台申报表',
         'DONE_TAX_REPORT': '完税凭证',
         'OTHER': '其他报表'
       },
