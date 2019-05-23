@@ -4,6 +4,9 @@
             <Col span="6">
                 <Card>
                     <p slot="title">结算申请</p>
+                    <div class="Card-cpde">
+                         <p >id：{{amountid}}</p>
+                    </div>
                       <div class="Card-cpde">
                          当前余额:<Input v-model="amount" disabled style="width: 300px"/>
                     </div>
@@ -71,6 +74,7 @@
                     <!-- <Input v-model="orderNo" placeholder="订单号" style="width: 200px"/> -->
                     <!-- <Button type="primary" style="margin-left:10px;">查询</Button> -->
                      <Table  highlight-row ref="currentRowTable" :columns="columns3" :data="dataList3"  style="margin-top:10px;"></Table>
+                      <Page :total="totals"  :page-size="table_limit" show-total :current='table_current' @on-change="accountList"/>
                 </Card>     
             </Col>
         </Row>    
@@ -90,6 +94,10 @@ export default {
     inject:['reload'],
     data(){
         return{
+              totals:0,
+            table_limit: 10,
+           table_current: 1,
+            amountid:'',
             amount:'',
             agentId:'',
             banknamess:'',
@@ -233,6 +241,7 @@ export default {
       acquire(){
           userget().then(res=>{
               this.amount=res.data.amount
+              this.amountid=res.data.id
           }).catch(res=>{
 
           })
@@ -276,10 +285,11 @@ export default {
           })
       },
     //   结算省请接口
-    accountList(){
-        let params={"pageVo":{"pageNumber":1,"pageSize":10},"withdrawsVo":{"roleIds":"2"},"searchVo":{"startDate":"","endDate":""}}
+    accountList(page){
+        let params={"pageVo":{"pageSize":this.table_limit, "pageNumber":page},"withdrawsVo":{"roleIds":"2"},"searchVo":{"startDate":"","endDate":""}}
         accountall(params).then(res=>{
             console.log(res)
+            this.totals=res.data.pageInfo.total
             this.dataList3=res.data.pageInfo.list
         }).catch(err=>{
 

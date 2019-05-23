@@ -65,7 +65,7 @@
                             <Input v-model="fromlk.limitAmount" placeholder="请输入手机号"/>
                         </FormItem>
                          <FormItem label="cookie" >
-                            <Input v-model="fromlk.extar" placeholder="请输入cookie"/>
+                            <Input v-model="fromlk.cookie" placeholder="请输入cookie"/>
                         </FormItem>
                          <FormItem label="退款地址id" >
                             <Input v-model="fromlk.returnAddressId" placeholder="请输入备注"/>
@@ -79,15 +79,6 @@
                          <FormItem label="备注" >
                             <Input v-model="fromlk.mark" placeholder="请输入备注"/>
                         </FormItem>
-                         <!-- <FormItem label="今日已收金额" >
-                            <Input v-model="fromlk.todayAmount" placeholder="请输入备注"/>
-                        </FormItem> -->
-                         <FormItem label="退款地址id" >
-                            <Input v-model="fromlk.returnAddressId" placeholder="请输入备注"/>
-                        </FormItem>
-                         <!-- <FormItem label="累计已收金额" >
-                            <Input v-model="fromlk.totalAmount" placeholder="请输入备注"/>
-                        </FormItem> -->
                          <FormItem label="状态">
                              <Select v-model="fromlk.status">
                                 <Option v-for="item in statusList" :key='item.id' :value="item.title">{{item.name}}</Option>
@@ -235,11 +226,12 @@ export default {
                          title: '限额',
                         key: 'limitAmount'
                     },
-                    //   {
-                    //     title: 'cookie',
-                    //     key: 'cookie'
-                    //     //  className: 'demo-table-info-column'
-                    // },
+                      {
+                        title: 'cookie',
+                        key: 'cookie',
+                         width: 350,    
+                        //  className: 'demo-table-info-column'
+                    },
                         {
                         title: '退款地址id',
                         key: 'returnAddressId'

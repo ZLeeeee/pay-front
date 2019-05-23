@@ -49,6 +49,7 @@
                          <Button type="primary">查询</Button>
                </Row>  
                 <Table  highlight-row ref="currentRowTable" :columns="columns3" :data="dataList"  style="margin-top:10px;"></Table>  
+                 <Page :total="totals"  :page-size="table_limit" show-total :current='table_current' @on-change="ccount"/>
            </div>    
         <div>
 
@@ -63,6 +64,9 @@ import {
 export default {
     data(){
         return{
+             totals:0,
+            table_limit: 10,
+           table_current: 1,
             account:'',
             dataList:[],
             generalAccount:{
@@ -165,7 +169,7 @@ export default {
     },
     methods:{
         ccount(){
-            let params={"pageVo":{"pageSize":10,"pageNumber":"1"},
+            let params={"pageVo":{"pageSize":this.table_limit, "pageNumber":page},
                         "withdrawsVo":{
                            
                     
@@ -176,6 +180,7 @@ export default {
                         }
             ccountList(params).then(res => {
                  console.log(res)
+                 this.totals=res.data.pageInfo.total
                  this.dataList=res.data.pageInfo.list
                  this.generalAccount=res.data.generalAccount
                 }).catch(err => {
