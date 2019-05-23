@@ -180,6 +180,7 @@ export default {
             totalAmount:''
             },
                fromlk:{
+                   id:'',
            accountName:'',
             password:'',
             extar:'',
@@ -204,11 +205,11 @@ export default {
             },
                  statusList:[
                 {
-                    title:true,
+                    title:'true',
                     name:'启用'
                 },
                  {
-                    title:false,
+                    title:'false',
                     name:'禁用'
                 },
             ],
@@ -241,6 +242,7 @@ export default {
                     //   {
                     //     title: 'cookie',
                     //     key: 'cookie'
+                    //     //  className: 'demo-table-info-column'
                     // },
                         {
                         title: '退款地址id',
@@ -273,14 +275,21 @@ export default {
                                    props: {
                                      type: 'primary',
                                      size:"large",
-                                    value: params.row.status===true
+                                    value: params.row.status==true
                                     },
                                 style: {
                                     marginRight: '5px'
                                     },
                                     on:{
                                          'on-change': (value) => {
-                                            
+                                            // if(value==false){
+                                                // this=value
+                                                this.fromlk.id=params.row.id 
+                                                this.fromlk.status=value
+                                        
+                                                this.ok2(params)
+                                               
+                                          
                                          }
                                     }
                                },
@@ -452,10 +461,17 @@ export default {
         },
         cancel(){},
         ok2(){
+             if(this.fromlk.status===1){
+                this.fromlk.status==true
+            }else{
+                this.fromlk.status==false
+            }
             let params=this.fromlk
                 editpddAccount(params).then(res => {
-                  console.log(res)
-                    this.contains()
+                if(res.status==0){
+                    this.$Message.info('编辑成功');
+                     this.contains()
+                  }
                     }).catch(err => {
                         this.treeLoading = false;
                     }); 
@@ -513,5 +529,10 @@ export default {
     }
     .fl{
         margin-right: 10px;
+    }
+
+    .demo-table-info-column{
+        height: 60px;
+        overflow: hidden;
     }
 </style>
