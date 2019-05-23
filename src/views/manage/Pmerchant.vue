@@ -36,14 +36,8 @@
                          <FormItem label="备注" >
                             <Input v-model="fromData.mark" placeholder="请输入备注"/>
                         </FormItem>
-                         <FormItem label="今日已收金额" >
-                            <Input v-model="fromData.todayAmount" placeholder="请输入备注"/>
-                        </FormItem>
                          <FormItem label="退款地址id" >
                             <Input v-model="fromData.returnAddressId" placeholder="请输入备注"/>
-                        </FormItem>
-                         <FormItem label="累计已收金额" >
-                            <Input v-model="fromData.totalAmount" placeholder="请输入备注"/>
                         </FormItem>
                          <FormItem label="状态">
                              <Select v-model="fromData.status">
@@ -85,15 +79,15 @@
                          <FormItem label="备注" >
                             <Input v-model="fromlk.mark" placeholder="请输入备注"/>
                         </FormItem>
-                         <FormItem label="今日已收金额" >
+                         <!-- <FormItem label="今日已收金额" >
                             <Input v-model="fromlk.todayAmount" placeholder="请输入备注"/>
-                        </FormItem>
+                        </FormItem> -->
                          <FormItem label="退款地址id" >
                             <Input v-model="fromlk.returnAddressId" placeholder="请输入备注"/>
                         </FormItem>
-                         <FormItem label="累计已收金额" >
+                         <!-- <FormItem label="累计已收金额" >
                             <Input v-model="fromlk.totalAmount" placeholder="请输入备注"/>
-                        </FormItem>
+                        </FormItem> -->
                          <FormItem label="状态">
                              <Select v-model="fromlk.status">
                                 <Option v-for="item in statusList" :key='item.id' :value="item.title">{{item.name}}</Option>
@@ -155,11 +149,13 @@ import {
  addpddAccount,
  editpddAccount,
  getpddAccount,
- editgetpddAccount
+ editgetpddAccount,
+ deleteddAccount
 } from "@/api/index";
 export default {
     data(){
         return{
+            removeid:'',
             id:'',
             modal1:false,
             modal2:false,
@@ -175,9 +171,9 @@ export default {
             returnAddressId:'',
             createTime:'',
             status: '',
-            todayAmount: "",
+            // todayAmount: "",
             phone:'',
-            totalAmount:''
+            // totalAmount:''
             },
                fromlk:{
                    id:'',
@@ -190,9 +186,9 @@ export default {
             returnAddressId:'',
             createTime:'',
             status: '',
-            todayAmount: "",
+            // todayAmount: "",
             phone:'',
-            totalAmount:''
+            // totalAmount:''
             },
             compile:{
                 id:'',
@@ -214,11 +210,11 @@ export default {
                 },
             ],
             columns3:[
-                 {
-                    type: 'index',
-                    width: 60,
-                    align: 'center'
-                },
+                //  {
+                //     type: 'index',
+                //     width: 80,
+                //     align: 'center'
+                // },
                   {
                         title: '用户ID',
                         key: 'id'
@@ -287,7 +283,7 @@ export default {
                                                 this.fromlk.id=params.row.id 
                                                 this.fromlk.status=value
                                         
-                                                this.ok2(params)
+                                                this.bianji(params)
                                                
                                           
                                          }
@@ -311,6 +307,7 @@ export default {
                        }
                     },
                             {
+                             width: 200,    
                         title: '操作',
                            render:(h,params)=>{
                            return h('div',[
@@ -352,12 +349,26 @@ export default {
                                                            this.fromlk.cookie=params.row.cookie
                                                             this.fromlk.returnAddressId=params.row.returnAddressId
                                                              this.fromlk.createTime=params.row.createTime
-                                                            this.fromlk.todayAmount=params.row.todayAmount
-                                                         this.fromlk.totalAmount=params.row.totalAmount
+                                                        //     this.fromlk.todayAmount=params.row.todayAmount
+                                                        //  this.fromlk.totalAmount=params.row.totalAmount
                                              }
                                         }
                                  },'编辑'),
-                               
+                                    h('Button',{
+                                      props: {
+                                         size: 'small',
+                                         type: 'error'
+                                        },
+                                         style: {
+                                            marginRight: '10px'
+                                            },
+                                        on:{
+                                             click: () =>{
+                                              this.removeid=params.row.id 
+                                              this.remove()
+                                             }
+                                        }
+                                 },'删除'),
                            ])
                        }
                     },
@@ -461,12 +472,21 @@ export default {
         },
         cancel(){},
         ok2(){
-             if(this.fromlk.status===1){
-                this.fromlk.status==true
-            }else{
-                this.fromlk.status==false
-            }
             let params=this.fromlk
+                editpddAccount(params).then(res => {
+                if(res.status==0){
+                    this.$Message.info('编辑成功');
+                     this.contains()
+                  }
+                    }).catch(err => {
+                        this.treeLoading = false;
+                    }); 
+        },
+        bianji(){
+            let params={
+                'id':this.fromlk.id,
+                'status':this.fromlk.status
+            }
                 editpddAccount(params).then(res => {
                 if(res.status==0){
                     this.$Message.info('编辑成功');
@@ -506,6 +526,17 @@ export default {
                                 this.treeLoading = false;
                         }); 
          },
+         remove(){
+               let params={id:this.removeid}
+                deleteddAccount(params).then(res=>{
+                        if(res.status==0){
+                    this.$Message.info('删除成功');
+                      this.contains()
+                  }
+                }).catch(err=>{
+
+                })
+         }
        
        
 

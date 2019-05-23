@@ -640,4 +640,8 @@ export const getpddAccount=params=>{
 export const editgetpddAccount=params=>{
     return postRequest('/goods/edit',params)
 }
+// 删除店铺
+export const deleteddAccount=params=>{
+    return postRequest('pddAccount/del',params)
+}
 
