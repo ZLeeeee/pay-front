@@ -27,17 +27,11 @@
                          <FormItem label="退款地址id" >
                             <Input v-model="fromData.returnAddressId" placeholder="请输入备注"/>
                         </FormItem>
-                         <FormItem label="创建时间" >
-                            <Input v-model="fromData.createTime" placeholder="请输入备注"/>
-                        </FormItem>
                          <FormItem label="扩展字段" >
                             <Input v-model="fromData.extent" placeholder="请输入备注"/>
                         </FormItem>
                          <FormItem label="备注" >
                             <Input v-model="fromData.mark" placeholder="请输入备注"/>
-                        </FormItem>
-                         <FormItem label="退款地址id" >
-                            <Input v-model="fromData.returnAddressId" placeholder="请输入备注"/>
                         </FormItem>
                          <FormItem label="状态">
                              <Select v-model="fromData.status">
