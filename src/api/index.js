@@ -645,3 +645,8 @@ export const deleteddAccount=params=>{
     return postRequest('pddAccount/del',params)
 }
 
+// 新增商品
+export const adddAccount=params=>{
+    return postRequest('/goods/add',params)
+}
+

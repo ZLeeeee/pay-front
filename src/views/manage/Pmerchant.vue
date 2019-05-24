@@ -87,6 +87,31 @@
                     @on-cancel="cancel3"
                     width="760px;"
                 >
+                    <Button type="primary"  @click="modal5 = true">添加商品</Button>
+                    <Modal
+                     v-model="modal5"
+                    title="添加商品"
+                    @on-ok="ok5"
+                    @on-cancel="cancel5"
+                    >
+                        <Form  :label-width="80" v-model='addcompile'>
+                         <FormItem label="skuId">
+                            <Input v-model="addcompile.skuId"  placeholder="请输入skuId"/>
+                        </FormItem>
+                          <FormItem label="goodsId" >
+                            <Input v-model="addcompile.goodsId" placeholder="请输入goodsId"/>
+                        </FormItem>
+                         <FormItem label="groupId" >
+                            <Input v-model="addcompile.groupId" placeholder="groupId"/>
+                        </FormItem>
+                         <FormItem label="amount" >
+                            <Input v-model="addcompile.amount" placeholder="请输入amount"/>
+                        </FormItem>
+                         <FormItem label="stock" >
+                            <Input v-model="addcompile.stock" placeholder="请输入stock"/>
+                        </FormItem>
+                    </Form>    
+                    </Modal>    
                      <Table  highlight-row ref="currentRowTable" :columns="columns4" :data="dataList4"  style="margin-top:20px;"></Table>
                 </Modal>   
                  <Modal
@@ -102,7 +127,7 @@
                          <FormItem label="skuId">
                             <Input v-model="compile.skuId"  placeholder="请输入skuId"/>
                         </FormItem>
-                         <FormItem label="skuId" >
+                         <FormItem label="pddAccountId" >
                             <Input v-model="compile.pddAccountId" placeholder="请输入skuId"/>
                         </FormItem>
                           <FormItem label="goodsId" >
@@ -135,13 +160,15 @@ import {
  editpddAccount,
  getpddAccount,
  editgetpddAccount,
- deleteddAccount
+ deleteddAccount,
+ adddAccount
 } from "@/api/index";
 export default {
     data(){
         return{
             removeid:'',
             id:'',
+            modal5:false,
             modal1:false,
             modal2:false,
             modal3:false,
@@ -183,6 +210,14 @@ export default {
                 groupId:'',
                 amount:'',
                 stock:''
+            },
+            addcompile:{
+                pddAccountId:'',
+                skuId:'',
+                goodsId:'',
+                groupId:'',
+                amount:'',
+                stock:'' 
             },
                  statusList:[
                 {
@@ -375,10 +410,6 @@ export default {
                         key: 'skuId'
                     },
                      {
-                        title: 'pddAccountId',
-                        key: 'pddAccountId'
-                    },
-                     {
                         title: 'goodsId',
                         key: 'goodsId'
                     },
@@ -499,6 +530,18 @@ export default {
             })
          },
          cancel4(){},
+         ok5(){
+             this.addcompile.pddAccountId=this.id
+               let params=this.addcompile
+             adddAccount(params).then(res=>{
+                  if(res.status==0){
+                    this.$Message.info('新增成功');
+                      this.delete()
+                  }
+             }).catch(err=>{
+
+             })
+         },
          delete(){
                  let params={
                         pddAccountId: this.id
