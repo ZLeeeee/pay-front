@@ -473,6 +473,10 @@ export const editSysConfig=params=>{
 export const getUserListByRoleCode=params=>{
   return getRequest(`/user/getUsers/${params}`)
 }
+//补发订单
+export const sendNotify=params=>{
+    return postRequest(`/pddOrder/send/notify/${params}`)
+}
 // 分配人员
 export const submitUserListByRole=params=>{
   return postRequest("/company/assignUsers",params)

@@ -67,6 +67,9 @@
                 </Modal>
                 <Button type="primary" @click="modal1 = true">添加账户</Button>
                  <Table  highlight-row ref="currentRowTable" :columns="columns3" :data="dataList"  style="margin-top:20px;"></Table>
+               <Row type="flex" justify="end" style="margin-top:10px;">
+                   <Page :total="totals" :page-size="table_limit" show-total :current='table_current' @on-change="ccount"/>
+               </Row>
            </div>    
     </div>
 </template>
@@ -80,6 +83,9 @@ import {
 export default {
     data(){
         return{
+            totals: 0,
+            table_limit: 10,
+            table_current: 1,
             id:'',
             modal1:false,
             modal2:false,
@@ -237,7 +243,7 @@ export default {
         this.contains()
     },
     methods:{
-            contains(){
+            contains(page){
              let params={
                 // id:localStorage.getItem('uid'),
                 // parentId:localStorage.getItem('parentId')

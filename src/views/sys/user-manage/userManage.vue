@@ -79,6 +79,9 @@
                 <FormItem label="E编码" prop="eCode">
                     <Input v-model="userForm.eCode" :maxlength="20"/>
                 </FormItem>
+                <FormItem label="费率" prop="rate">
+                    <Input v-model="userForm.rate" :maxlength="20"/>
+                </FormItem>
                 <!-- <FormItem label="所属公司" prop="companys">
                   <Select v-model="userForm.companys" multiple filterable v-if="modalType==0">
                       <Option v-for="item in companyList" :value="item.id" :key="item.id" :label="item.name">
@@ -170,7 +173,8 @@ export default {
         companys: [],
         departmentId: "",
         departmentTitle: "",
-        eCode:""
+        eCode:"",
+          rate:""
       },
       userRoles: [],
       roleList: [],
@@ -467,6 +471,7 @@ export default {
             tel: this.userForm.tel,
             roleIds: this.userForm.roles.join(','),
             departmentIds: this.userForm.departmentId,
+            rate: this.userForm.rate,
             // companyIds: this.userForm.companys.join(',')
           }
           if (this.modalType === 0) {

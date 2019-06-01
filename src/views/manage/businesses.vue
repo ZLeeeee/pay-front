@@ -32,9 +32,9 @@
                     </Form>    
                 </Modal>
             <Row style="margin-top:10px;">    
-                <Input v-model="agencyName" placeholder="商户号" style="width: 150px" class="fl"/>
-                 <Input v-model="agencyName" placeholder="用户名" style="width: 150px" class="fl"/>
-                 <Select  placeholder="状态" class="fl" v-model="status" style="width:80px">
+                <Input v-model="userVo.merchant" placeholder="商户号" style="width: 150px" class="fl"/>
+                 <Input v-model="userVo.username" placeholder="用户名" style="width: 150px" class="fl"/>
+                 <Select  placeholder="状态" class="fl" v-model="userVo.status" style="width:80px">
                     <Option value="0">启用</Option>
                     <Option value="1">禁用</Option>
                     <Option value="2">删除</Option>
@@ -42,6 +42,9 @@
                  <Button type="primary" @click="query">查询</Button>
             </Row>
             <Table  highlight-row ref="currentRowTable" :columns="columns3" :data="dataList"  @on-current-change="handleRowChange" style="margin-top:10px;"></Table>
+            <Row type="flex" justify="end" style="margin-top:10px;">
+                <Page :total="totals"  :page-size="table_limit" show-total :current='table_current' @on-change="cc"/>
+            </Row>
             <Modal
              v-model="modal2"
                     title="充值"
@@ -104,6 +107,9 @@ import {
 export default {
     data(){
         return{
+            totals:0,
+            table_limit: 10,
+            table_current: 1,
             id:'',
             text:'启用',
             qi:'',
@@ -111,11 +117,16 @@ export default {
             modal2:false,
             modal3:false,
             amountss:'',
-            agencyName:'',
+            userVo:{
+                username:'',
+                merchant:'',
+                status:'',
+                roleIds:496138616573953
+            },
             status:'',
             fromData:{
                 rate:'',
-                roleIds:'2',
+                roleIds:'496138616573953',
                 username:'', //用户名
                 password:'', //密码
                 status:'',   //状态
@@ -135,7 +146,7 @@ export default {
                 amount:'',
                 status:'',
                 userid:'',
-                type:''
+                type:'2'
             },
             dataList:[
                 
@@ -324,11 +335,12 @@ export default {
             },
             twook(){this.addsubtract()},
             twocancel(){},
-            cc(){
-                 let params={"pageVo":{"pageNumber":1,"pageSize":10},"userVo":{"roleIds":"2"},"searchVo":{"startDate":"","endDate":""}}
+            cc(page){
+                 let params={"pageVo":{"pageNumber":page,"pageSize":10},"userVo":this.userVo,"searchVo":{"startDate":"","endDate":""}}
                merchantList(params).then(res => {
                    console.log(res)
                    this.dataList=res.data.list
+                   this.totals = res.data.total
                    this.qi=res.data.list.status
                 }).catch(err => {
                     this.treeLoading = false;
@@ -336,7 +348,7 @@ export default {
             },
              handleRowChange(currentRow, oldCurrentRow){
                 this.chargedata.userid=currentRow.id
-                this.chargedata.type=currentRow.type
+                /*this.chargedata.type=currentRow.type*/
                 localStorage.setItem('uid', currentRow.id)
                 localStorage.setItem('parentId', currentRow.parentId)
             },
