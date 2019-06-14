@@ -139,7 +139,7 @@ export default {
             }, 
              {
                 title: '持卡人',
-                key: 'userName'
+                key: 'accountName'
             }, 
              {
                 title: '创建时间',
@@ -214,12 +214,13 @@ export default {
             let params={
             bankname: this.banknamess,
             withdrawamount: this.withdrawamount,
-            branchName: this.branchName,
-            bankcardno: this.bankCardNo
+            branchname: this.branchName,
+            bankcardno: this.bankCardNo,
+                accountname: this.usernn
                 }
                 account(params).then(res=>{
                     if(res.status==0){
-                            this.$Message.success('结算成功');
+                            this.$Message.success('申请成功');
                             this.accountList()
                             this.reload()
                         }
@@ -250,7 +251,7 @@ export default {
           this.modal1=false
           this.branchName=currentRow.branchName
           this.bankCardNo=currentRow.bankCardNo
-          this.usernn=currentRow.userName
+          this.usernn=currentRow.accountName
           this.banknamess=currentRow.bankName
           this.agentId=currentRow.id
       },

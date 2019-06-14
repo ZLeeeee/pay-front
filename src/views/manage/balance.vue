@@ -168,7 +168,7 @@ export default {
         this.ccount()
     },
     methods:{
-        ccount(){
+        ccount(page){
             let params={"pageVo":{"pageSize":this.table_limit, "pageNumber":page},
                         "withdrawsVo":{
                            

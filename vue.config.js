@@ -13,8 +13,8 @@ module.exports = {
             },
             '/api': {
                 //target: 'http://localhost:8080',
-                target: 'http://192.168.3.60:8080',
-                // target: 'http://114.116.93.197:8080',
+                //target: 'http://192.168.3.60:8080',
+                 target: 'http://127.0.0.1:8080',
                 //target: 'http://114.115.161.193:8080',
                 //target: 'http://7bdd99c1.ngrok.io',
                 pathRewrite: { "^/api": "" }
