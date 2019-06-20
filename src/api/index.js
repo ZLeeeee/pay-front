@@ -475,7 +475,7 @@ export const getUserListByRoleCode=params=>{
 }
 //补发订单
 export const sendNotify=params=>{
-    return postRequest(`/pddOrder/send/notify/${params}`)
+    return postRequest(`/yz/order/send/notify/${params}`)
 }
 // 分配人员
 export const submitUserListByRole=params=>{
@@ -628,6 +628,7 @@ export const userget=params=>{
 export const pddAccount=params=>{
     return postRequest('/pddAccount/all/page',params)
 }
+
 // 添加商铺
 export const addpddAccount=params=>{
     return postRequest('pddAccount/add',params)
@@ -652,5 +653,46 @@ export const deleteddAccount=params=>{
 // 新增商品
 export const adddAccount=params=>{
     return postRequest('/goods/add',params)
+}
+// 有赞商家列表
+export const yzAccount=params=>{
+    return postRequest('/yz/account/all/page',params)
+}
+// 添加有赞商户
+export const insertYzAccount=params=>{
+    return postRequest('/yz/account/add',params)
+}
+// 更新商户
+export const updateYzAccount=params=>{
+    return postRequest('/yz/account/update',params)
+}
+// 管理商铺
+export const getYzGoods=params=>{
+    return postRequest('/yz/goods/get',params)
+}
+// 编辑管理商铺
+export const updateYzGoods=params=>{
+    return postRequest('/yz/goods/update',params)
+}
+// 删除店铺
+export const deleteYzAccount=params=>{
+    return postRequest('/yz/account/del',params)
+}
+// 新增商品
+export const insertYzGoods=params=>{
+    return postRequest('/yz/goods/add',params)
+}
+// 有赞买家账户
+export const getYzUser=params=>{
+    return postRequest('/yz/user/all',params)
+}
+export const updateYzUser=params=>{
+    return postRequest('/yz/user/update',params)
+}
+export const deleteYzUser=params=>{
+    return postRequest('/yz/user/delete',params)
+}
+export const insertYzUser=params=>{
+    return postRequest('/yz/user/add',params)
 }
 
