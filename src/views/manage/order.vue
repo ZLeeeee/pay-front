@@ -2,36 +2,47 @@
     <div>
         <p class="agency-top-text">订单管理</p>
         <Row style="margin-top:14px;" type="flex" justify="space-between">
-            <Col :span="6" class="balance-box">
+            <Col :span="4" class="balance-box">
                 <div class="balance-box-left">
-                    <Icon type="logo-yen" class="balance-box-icon" size="36"/>
+                    <Icon type="logo-yen" class="balance-box-icon" size="30"/>
                 </div>
                 <div class="balance-box-right">
                     <p>订单金额</p>
                     <div>{{generalAccount.allAmount}}元</div>
                 </div>
             </Col>
-            <Col :span="6" class="balance-box">
+            <Col :span="4" class="balance-box">
                 <div class="balance-box-left">
-                    <Icon type="logo-yen" class="balance-box-icon" size="36"/>
+                    <Icon type="logo-yen" class="balance-box-icon" size="30"/>
                 </div>
                 <div class="balance-box-right">
                     <p>手续费</p>
                     <div>{{generalAccount.sysAmount}}元</div>
                 </div>
             </Col>
-            <Col :span="6" class="balance-box">
+            <Col :span="4" class="balance-box">
                 <div class="balance-box-left">
-                    <Icon type="logo-yen" class="balance-box-icon" size="36"/>
+                    <Icon type="logo-yen" class="balance-box-icon" size="30"/>
                 </div>
                 <div class="balance-box-right">
                     <p>交易笔数</p>
                     <div>{{generalAccount.total}}笔</div>
                 </div>
             </Col>
-            <Col :span="6" class="balance-box">
+            <Col :span="4" class="balance-box">
                 <div class="balance-box-left">
-                    <Icon type="logo-yen" class="balance-box-icon" size="36"/>
+                    <Icon type="logo-yen" class="balance-box-icon" size="30"/>
+                </div>
+                <div class="balance-box-right">
+                    <p v-if="this.orderVo.status == 1">成功率</p>
+                    <p v-else="this.orderVo.status == 0">失败率</p>
+                    <div v-if="this.orderVo.status == -1">--</div>
+                    <div v-else>{{generalAccount.successRatio}}</div>
+                </div>
+            </Col>
+            <Col :span="4" class="balance-box">
+                <div class="balance-box-left">
+                    <Icon type="logo-yen" class="balance-box-icon" size="30"/>
                 </div>
                 <div class="balance-box-right">
                     <p>用户收入</p>
@@ -59,10 +70,12 @@
                     </Select>
                 </Col>
                 <Col span="3">
-                    <Date-picker type="datetime" placeholder="选择起始时间" format="yyyy-MM-dd HH:mm:ss" v-model="searchVo.startDate" style="width: 200px"></Date-picker>
+                    <Date-picker type="datetime" placeholder="选择起始时间" format="yyyy-MM-dd HH:mm:ss"
+                                 v-model="searchVo.startDate" style="width: 200px"></Date-picker>
                 </Col>
                 <Col span="3">
-                    <Date-picker type="datetime" placeholder="选择结束时间" format="yyyy-MM-dd HH:mm:ss" v-model="searchVo.endDate" style="width: 200px"></Date-picker>
+                    <Date-picker type="datetime" placeholder="选择结束时间" format="yyyy-MM-dd HH:mm:ss"
+                                 v-model="searchVo.endDate" style="width: 200px"></Date-picker>
                 </Col>
                 <!--</FormItem>-->
                 <Button type="primary" @click="query()">查询</Button>
@@ -134,6 +147,7 @@
                     allUserMount: "",
                     allOrderRate: "",
                     allAgentAmount: "",
+                    successRatio: "",
                     total: ''
                 },
                 columns3: [
@@ -258,14 +272,14 @@
                 }).catch(err => {
                     this.treeLoading = false;
                 });
-            },reset(){
-                this.orderVo.underorderno='';
-                this.orderVo.orderno= '';
-                this.orderVo.merchant= '';
-                this.orderVo.status= '1';
-                this.orderVo.isHistory= '0';
-                this.searchVo.startDate='';
-                this.searchVo.endDate='';
+            }, reset() {
+                this.orderVo.underorderno = '';
+                this.orderVo.orderno = '';
+                this.orderVo.merchant = '';
+                this.orderVo.status = '1';
+                this.orderVo.isHistory = '0';
+                this.searchVo.startDate = '';
+                this.searchVo.endDate = '';
                 console.log(this.orderVo)
                 console.log(this.searchVo)
             }
@@ -293,7 +307,7 @@
     }
 
     .balance-box {
-        width: 340px;
+        width: 300px;
         height: 90px;
     }
 
@@ -312,7 +326,7 @@
 
     .balance-box-right {
         height: 90px;
-        width: 250px;
+        width: 200px;
         background: #00C0EF;
         float: left;
     }
