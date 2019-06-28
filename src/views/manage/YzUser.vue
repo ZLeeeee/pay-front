@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <p class="agency-top-text">拼多多账户管理</p>
+        <p class="agency-top-text">有赞买家管理</p>
         <div class="agency-box">
             <Modal
                     v-model="modal1"
