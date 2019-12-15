@@ -495,7 +495,7 @@ export const agencyadd=params=>{
   }
   //用户代理数组
   export const merchantList=params=>{
-    return postRequest('user/all/byRole',params)
+    return postRequest('/user/all/byRole',params)
   }
   //编辑用户
   export const editList=params=>{
@@ -512,7 +512,7 @@ export const deleteuserList=params=>{
   }
   //通道列表
   export const passagewayList=params=>{
-    return postRequest('userRates/get/byUser',params)
+    return postRequest('/userRates/get/byUser',params)
   }
   //通道分页查询
     export const passagewayfenList=params=>{
@@ -549,7 +549,7 @@ export const eremovepayList=params=>{
   }
 //所有账号列表
 export const accountList=params=>{
-    return postRequest('accountPhones/all',params)
+    return postRequest('/accountPhones/all',params)
   }
   //结算列表
   export const ccountList=params=>{
